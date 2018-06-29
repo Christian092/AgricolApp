@@ -1,0 +1,70 @@
+﻿@model ProyectoV1.Models.usuario
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Administrador.cshtml";
+}
+
+<h2>Edita este usuario</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div  class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.rut,"Rut", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-xs-4">
+               @Html.EditorFor(model => model.rut, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.rut, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.clave,"Clave", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-xs-4">
+                @Html.EditorFor(model => model.clave, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.clave, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.rol,"Rol", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-xs-4">
+               @{
+                   List<SelectListItem> listItems = new List<SelectListItem>();
+                   listItems.Add(new SelectListItem
+                   {
+                       Text = "Usuario",
+                       Value = "Usuario"
+                   });
+                   listItems.Add(new SelectListItem
+                   {
+                       Text = "Administrador",
+                       Value = "Administrador",
+                   });
+            }
+            @Html.DropDownListFor(model => model.rol, listItems, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.rol, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+
+                <button type="submit" class="btn btn-primary glyphicon glyphicon glyphicon-floppy-disk"> Guardar</button>
+                @Html.ActionLink(" Volver al Inicio", "InicioAdministrador", " ", htmlAttributes: new { @class = "btn btn-success glyphicon glyphicon-arrow-left" })
+
+            </div>
+
+        </div>
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

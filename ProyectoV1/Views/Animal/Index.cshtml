@@ -1,0 +1,170 @@
+﻿@model IPagedList<ProyectoV1.Models.animal>
+@using PagedList.Mvc;
+@using PagedList;
+@using ProyectoV1.Helpers
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Template.cshtml";
+    var grid = new WebGrid(source: Model, canPage: false);
+}
+
+<div>
+    <h2>Animales de tu Fundo</h2>
+    <hr />
+    @using (Html.BeginForm("Index", "Animal"))
+    {
+        <div class="contac2" style="width:200px">
+            <div class="alert alert-warning" >
+                <h4 align="center">Buscar por Codigo SAG</h4>
+                <div class="form-group contac2">
+                    <div class="col-xs-12">
+
+                        @Html.TextBox("nombre", "", new { @class = "form-control", @placeholder = "Ingresa el Codigo" })
+                        <br />
+                    </div>
+
+                </div>
+                <div align="center">
+                    <button type="submit" id="buscar" class="btn btn-success glyphicon glyphicon-search"> Buscar</button>
+                </div>
+            </div>
+            <div style="margin-top:50px" align="center" class="contac2">
+
+                <a href="~/Animal/CodigoQRAnimales" class="btn btn-danger glyphicon glyphicon-export" role="button" align="right"> Exportar QR a PDF </a>
+            </div>
+        </div>
+        
+    }
+    <br />
+    
+    <div class="contac">
+        <table class="table table-hover">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().codigo_sag)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().sexo)
+
+                </th>
+                <th>
+                    Nacimiento
+                </th>
+                <th>
+                    Ingreso al fundo
+                </th>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.First().estado)*@
+                    Estado
+                </th>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.First().raza)*@
+                    Raza
+                </th>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.First().tipo)*@
+                    Tipo
+                </th>
+                <th>
+                    Codigo QR
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.codigo_sag)
+                    </td>
+                    <td>
+                        @{
+
+                            var sexo = "";
+                            if (item.sexo.Equals("M"))
+                            {
+                                sexo = "Macho";
+
+                            };
+                            if (item.sexo.Equals("H"))
+                            {
+                                sexo = "Hembra";
+
+                            };
+
+                        }
+                        @sexo
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fec_nac)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fecha_ing)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.estado.nombre)
+                       
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.raza.nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.tipo.nombre)
+                    </td>
+                    <td>
+                        @Html.GenerateQrCode3(item.codigo_sag)
+                    </td>
+                    @*<td>
+                        @Html.GenerateQrCode3(Model.codigo_sag)
+                    </td>*@
+                    <td>
+                        @{ 
+                            if(item.estado.Equals("MUERTO"))
+                            {
+
+                            }
+                        }
+
+                        
+
+                        @{
+                            if (item.estado.nombre.Equals("VENDIDO") || item.estado.nombre.Equals("MUERTO"))
+                            {
+                                @Html.ActionLink(" ", "Edit", new { id = item.id }, htmlAttributes: new { @class = "btn btn-success glyphicon glyphicon-pencil disabled" })
+                            }
+                            else
+                            {
+                                @Html.ActionLink(" ", "Edit", new { id = item.id }, htmlAttributes: new { @class = "btn btn-success glyphicon glyphicon-pencil" })
+                            }
+                        }
+
+                        @Html.ActionLink(" ", "Details", new { id = item.id }, htmlAttributes: new { @class = "btn btn-info glyphicon glyphicon-zoom-in " })
+
+                        @Html.ActionLink(" ", "Delete", new { id = item.id }, htmlAttributes: new { @class = "btn btn-danger glyphicon glyphicon-trash" })
+                    </td>
+                </tr>
+
+            }
+
+        </table>
+        
+        <div>
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+            @Html.ActionLink(" Exportar a Excel", "GetExcel", "Animal", htmlAttributes: new { @class = "btn btn-success glyphicon glyphicon-export" })
+            @Html.ActionLink(" Añadir Animal", "Create", " ", htmlAttributes: new { @class = "btn btn-primary glyphicon glyphicon-plus " })
+            @Html.ActionLink(" Ver Animales Historicos", "Historicos", " ", htmlAttributes: new { @class = "btn btn-primary glyphicon glyphicon-zoom-in " })
+            @Html.ActionLink(" Animales que ya puedes vender", "PorVender", " ", htmlAttributes: new { @class = "btn btn-primary glyphicon glyphicon-zoom-in " })
+        </div>
+        </div>
+
+    </div>
+
+<style>
+    .contac {
+        float: left;
+    }
+
+    .contac2 {
+        float: right;
+    }
+</style>

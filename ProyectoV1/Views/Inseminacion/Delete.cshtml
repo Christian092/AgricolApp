@@ -1,0 +1,61 @@
+﻿@model ProyectoV1.Models.inseminacion
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Template.cshtml";
+}
+
+
+<h3>¿Seguro quieres eliminar esta Inseminacion?</h3>
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha)
+        </dd>
+
+        <dt>
+            Animal
+            @*@Html.DisplayNameFor(model => model.animal.codigo_sag)*@
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.animal.codigo_sag)
+        </dd>
+
+        <dt>
+            Inseminador
+            @*@Html.DisplayNameFor(model => model.inseminador.nombre)*@
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.inseminador.nombre)
+        </dd>
+
+        <dt>
+            Procedencia del Semen
+            @*@Html.DisplayNameFor(model => model.procedencia_semen.nombre)*@
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.procedencia_semen.nombre)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <div align="center"><h4><font color="red">@ViewBag.Error</font></h4></div>
+            <button type="submit" class="btn btn-danger glyphicon glyphicon-trash"> Eliminar</button>
+            @Html.ActionLink(" Volver al Inicio", "Index", " ", htmlAttributes: new { @class = "btn btn-success glyphicon glyphicon-arrow-left" })
+        </div>
+    }
+</div>

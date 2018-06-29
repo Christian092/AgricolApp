@@ -1,0 +1,91 @@
+﻿@model IPagedList<ProyectoV1.Models.animal>
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "GraficoSexo";
+    Layout = "~/Views/Shared/_Template.cshtml";
+}
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+<h2 align="center">Sexo de Los Animales del Fundo</h2>
+
+<br />
+<div id="donutchart"style="width: 1000px; height: 450px;"></div>
+<hr />
+
+
+
+
+<script>
+                    $(document).ready(function () {
+                        //Load Data Here
+                        var chartData = null;
+                        $.ajax({
+                            url: '/Grafico/ObtenerSexoAnimales',
+                            type: 'GET',
+                            dataType: 'json',
+                            data: '',
+                            success: function (d) {
+                                chartData = d;
+                            },
+                            error: function () {
+                                alert('Error!');
+                            }
+                        }).done(function () {
+                            console.log(chartData);
+                            drawChart(chartData);
+                        });
+                    });
+
+                    function drawChart(d) {
+                        var chartData = d;
+                        var data = null;
+                        data = google.visualization.arrayToDataTable(chartData);
+
+                        var view = new google.visualization.DataView(data);
+                        view.setColumns(
+                        [0,
+                            {
+                                type: 'number',
+                                label: data.getColumnLabel(0),
+                                calc: function () { return 0; }
+                            },
+                            {
+                                type: 'number',
+                                label: data.getColumnLabel(1),
+                                calc: function () { return 0; }
+                            }
+                        ]);
+
+                        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+
+                        var options = {
+
+                            title: 'CANTIDAD DE ANIMALES POR SEXO',
+                            is3D: true,
+
+                            legend: 'bottom',
+                            hAxis: {
+                                title: 'Sexo'
+
+                            },
+                            vAxis: {
+
+                                title: 'Cantidad', titleTextStyle: { color: 'red' }
+                            },
+
+                            animation: {
+                                duration: 3000
+                            }
+                        };
+
+                        var runFirstTime = google.visualization.events.addListener(chart, 'ready', function () {
+                            google.visualization.events.removeListener(runFirstTime);
+                            chart.draw(data, options);
+                        });
+
+                        chart.draw(view, options);
+                    }
+                    google.load('visualization', '1', { packages: ['corechart'] });
+</script>
+

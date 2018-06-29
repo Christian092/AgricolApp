@@ -1,0 +1,43 @@
+﻿@model ProyectoV1.Models.muerte
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Template.cshtml";
+}
+
+<h2>Detalles de la Muerte</h2>
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.causa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.causa)
+        </dd>
+
+        <dt>
+            Animal
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.animal.codigo_sag)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink(" Editar", "Edit", new { id = Model.id }, htmlAttributes: new { @class = "btn btn-primary glyphicon glyphicon-pencil" })
+    @Html.ActionLink(" Volver al Inicio", "Index", " ", htmlAttributes: new { @class = "btn btn-success glyphicon glyphicon-arrow-left" })
+</p>

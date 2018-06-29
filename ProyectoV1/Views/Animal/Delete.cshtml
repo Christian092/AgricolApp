@@ -1,0 +1,56 @@
+﻿@model ProyectoV1.Models.animal
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Template.cshtml";
+}
+<link rel="stylesheet" type="text/css" href="/Content/sweetalert/sweetalert.css">
+<script src="~/Content/sweetalert/sweetalert.min.js"></script>
+
+<h3>¿Seguro quieres eliminar este Animal?</h3>
+<div>
+
+    <hr />
+  
+        <h3>
+            @Html.DisplayNameFor(model => model.codigo_sag)
+        </h3>
+        
+        <h2>
+            @Html.DisplayFor(model => model.codigo_sag)
+        </h2>
+
+        
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <br />
+        <br />
+        
+        <div class="form-actions no-color">
+
+            <button type="submit" class="btn btn-danger glyphicon glyphicon-trash"> Eliminar</button>
+            @Html.ActionLink(" Volver al Inicio", "Index", " ", htmlAttributes: new { @class = "btn btn-success glyphicon glyphicon-arrow-left" })
+            <div align="center"><h4><font color="red">@ViewBag.Error</font></h4></div>
+        </div>
+    }
+</div>
+@{
+    var message = TempData["notice"] ?? string.Empty;
+}
+<script type="text/javascript">
+
+        var message = '@message';
+        if (message)
+            sweetAlert({message,
+                title: message,
+                text: "El Aviso se Cerrará en 20 Segundos o Presiona el Botón",
+                imageUrl: "/Content/Image/images.png",
+                timer: 20000,
+                animation: true,
+                showConfirmButton: true
+            });
+
+</script>

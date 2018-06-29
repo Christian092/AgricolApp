@@ -1,0 +1,27 @@
+﻿@model ProyectoV1.Models.tipo_lecheria
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Template.cshtml";
+}
+
+<h2>Detalles del Tipo de Lecheria</h2>
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink(" Editar", "Edit", new { id = Model.id }, htmlAttributes: new { @class = "btn btn-primary glyphicon glyphicon-pencil" })
+    @Html.ActionLink(" Volver al Inicio", "Index", " ", htmlAttributes: new { @class = "btn btn-success glyphicon glyphicon-arrow-left" })
+</p>

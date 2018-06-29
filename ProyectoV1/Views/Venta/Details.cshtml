@@ -1,0 +1,58 @@
+﻿@model ProyectoV1.Models.venta
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Template.cshtml";
+}
+<h2>Detalles de la Venta</h2>
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha)
+        </dd>
+
+        <dt>
+            Pesaje (Kg)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pesaje)
+        </dd>
+
+        <dt>
+            Precio ($)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.precio)
+        </dd>
+
+        <dt>
+            Animal
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.animal.codigo_sag)
+        </dd>
+
+        <dt>
+            Comprador
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.comprador.nombre)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink(" Editar", "Edit", new { id = Model.id }, htmlAttributes: new { @class = "btn btn-primary glyphicon glyphicon-pencil" })
+    @Html.ActionLink(" Volver al Inicio", "Index", " ", htmlAttributes: new { @class = "btn btn-success glyphicon glyphicon-arrow-left" })
+</p>

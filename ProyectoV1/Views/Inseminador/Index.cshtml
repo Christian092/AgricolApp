@@ -1,0 +1,54 @@
+﻿
+@model IPagedList<ProyectoV1.Models.inseminador>
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Template.cshtml";
+}
+
+<h2>Inseminadores que han trabajado en tu Fundo</h2>
+<br />
+
+<table class="table table-hover" style="width:auto">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First().nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().apellido)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().numero)
+        </th>
+       
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.apellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.numero)
+            </td>
+            <td>
+                @Html.ActionLink(" ", "Edit", new { id = item.id }, htmlAttributes: new { @class = "btn btn-success glyphicon glyphicon-pencil" })
+
+                @Html.ActionLink(" ", "Details", new { id = item.id }, htmlAttributes: new { @class = "btn btn-info glyphicon glyphicon-zoom-in" })
+
+                @Html.ActionLink(" ", "Delete", new { id = item.id }, htmlAttributes: new { @class = "btn btn-danger glyphicon glyphicon-trash" })
+            </td>
+        </tr>
+    }
+
+</table>
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+ @Html.ActionLink(" Exportar a Excel", "GetExcel", "Inseminador", htmlAttributes: new { @class = "btn btn-success glyphicon glyphicon-export" })
+@Html.ActionLink(" Añadir Inseminador", "Create", " ", htmlAttributes: new { @class = "btn btn-primary glyphicon glyphicon-plus " })
+  
+

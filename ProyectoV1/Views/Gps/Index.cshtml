@@ -1,0 +1,55 @@
+﻿@model IEnumerable<ProyectoV1.Models.gps>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Template.cshtml";
+}
+
+<h2>GPS</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.latitud)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.longitud)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.imei)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.animal.codigo_sag)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.latitud)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.longitud)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.imei)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.animal.codigo_sag)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.id }, htmlAttributes: new { @class = "btn btn-success", })
+
+                @Html.ActionLink("Detalles", "Details", new { id = item.id }, htmlAttributes: new { @class = "btn btn-info" })
+
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.id }, htmlAttributes: new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@Html.ActionLink("Añadir GPS", "Create", " ", htmlAttributes: new { @class = "btn btn-primary " })

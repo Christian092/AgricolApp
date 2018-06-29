@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1714191f2afb4b8a82f0ab017d36b725" Name="Diagram1" ZoomLevel="63">
+        <EntityTypeShape EntityType="bdagricolaModel.alerta_mantencion" Width="1.5" PointX="13.25" PointY="5.125" />
+        <EntityTypeShape EntityType="bdagricolaModel.animal" Width="1.5" PointX="3" PointY="12.75" />
+        <EntityTypeShape EntityType="bdagricolaModel.comprador" Width="1.5" PointX="3" PointY="26.125" />
+        <EntityTypeShape EntityType="bdagricolaModel.estado" Width="1.5" PointX="0.75" PointY="11.875" />
+        <EntityTypeShape EntityType="bdagricolaModel.fabricante" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="bdagricolaModel.gps" Width="1.5" PointX="5.25" PointY="28.375" />
+        <EntityTypeShape EntityType="bdagricolaModel.historial_gps" Width="1.5" PointX="5.25" PointY="9.625" />
+        <EntityTypeShape EntityType="bdagricolaModel.inseminacion" Width="1.5" PointX="5.25" PointY="13.875" />
+        <EntityTypeShape EntityType="bdagricolaModel.inseminador" Width="1.5" PointX="3" PointY="10" />
+        <EntityTypeShape EntityType="bdagricolaModel.lecheria" Width="1.5" PointX="11" PointY="3.125" />
+        <EntityTypeShape EntityType="bdagricolaModel.medicamento" Width="1.5" PointX="6" PointY="6.25" />
+        <EntityTypeShape EntityType="bdagricolaModel.muerte" Width="1.5" PointX="5.25" PointY="22.5" />
+        <EntityTypeShape EntityType="bdagricolaModel.nace_muerto" Width="1.5" PointX="7.5" PointY="22.75" />
+        <EntityTypeShape EntityType="bdagricolaModel.ordena" Width="1.5" PointX="13.25" PointY="2.25" />
+        <EntityTypeShape EntityType="bdagricolaModel.parto" Width="1.5" PointX="5.25" PointY="31.25" />
+        <EntityTypeShape EntityType="bdagricolaModel.poligono" Width="1.5" PointX="13" PointY="8.125" />
+        <EntityTypeShape EntityType="bdagricolaModel.procedencia" Width="1.5" PointX="1.5" PointY="20.5" />
+        <EntityTypeShape EntityType="bdagricolaModel.procedencia_semen" Width="1.5" PointX="3" PointY="23.75" />
+        <EntityTypeShape EntityType="bdagricolaModel.raza" Width="1.5" PointX="0.75" PointY="17.25" />
+        <EntityTypeShape EntityType="bdagricolaModel.secamiento" Width="1.5" PointX="8.25" PointY="10" />
+        <EntityTypeShape EntityType="bdagricolaModel.tipo" Width="1.5" PointX="0.75" PointY="14.25" />
+        <EntityTypeShape EntityType="bdagricolaModel.tipo_lecheria" Width="1.5" PointX="8.75" PointY="3.75" />
+        <EntityTypeShape EntityType="bdagricolaModel.tipo_tratamiento" Width="1.5" PointX="6" PointY="34.75" />
+        <EntityTypeShape EntityType="bdagricolaModel.tratador" Width="1.5" PointX="6" PointY="2.75" />
+        <EntityTypeShape EntityType="bdagricolaModel.tratamiento" Width="1.5" PointX="8.25" PointY="18.5" />
+        <EntityTypeShape EntityType="bdagricolaModel.tratamiento_animal" Width="1.5" PointX="8.25" PointY="13.875" />
+        <EntityTypeShape EntityType="bdagricolaModel.usuario" Width="1.5" PointX="10.75" PointY="8" />
+        <EntityTypeShape EntityType="bdagricolaModel.venta" Width="1.5" PointX="5.25" PointY="17.875" />
+        <EntityTypeShape EntityType="bdagricolaModel.vertice" Width="1.5" PointX="15.25" PointY="8" />
+        <AssociationConnector Association="bdagricolaModel.fk_alerta_mantencion_lecheria1" />
+        <AssociationConnector Association="bdagricolaModel.fk_animal_estado1" />
+        <AssociationConnector Association="bdagricolaModel.fk_animal_raza1" />
+        <AssociationConnector Association="bdagricolaModel.fk_animal_tipo_animal1" />
+        <AssociationConnector Association="bdagricolaModel.fk_gps_animal1" />
+        <AssociationConnector Association="bdagricolaModel.fk_historial_gps_animal1" />
+        <AssociationConnector Association="bdagricolaModel.fk_inseminacion_animal1" />
+        <AssociationConnector Association="bdagricolaModel.fk_muerte_animal1" />
+        <AssociationConnector Association="bdagricolaModel.fk_parto_animal1" />
+        <AssociationConnector Association="bdagricolaModel.fk_parto_animal2" />
+        <AssociationConnector Association="bdagricolaModel.fk_secamiento_animal1" />
+        <AssociationConnector Association="bdagricolaModel.fk_tratamiento_animal_animal1" />
+        <AssociationConnector Association="bdagricolaModel.fk_venta_animal1" />
+        <AssociationConnector Association="bdagricolaModel.fk_venta_comprador1" />
+        <AssociationConnector Association="bdagricolaModel.fk_lecheria_fabricante1" />
+        <AssociationConnector Association="bdagricolaModel.fk_inseminacion_inseminador1" />
+        <AssociationConnector Association="bdagricolaModel.fk_inseminacion_procedencia_semen1" />
+        <AssociationConnector Association="bdagricolaModel.fk_lecheria_tipo_lecheria1" />
+        <AssociationConnector Association="bdagricolaModel.fk_ordena_lecheria1" />
+        <AssociationConnector Association="bdagricolaModel.fk_secamiento_medicamento1" />
+        <AssociationConnector Association="bdagricolaModel.fk_muerto_parto1" />
+        <AssociationConnector Association="bdagricolaModel.fk_muerto_raza1" />
+        <AssociationConnector Association="bdagricolaModel.fk_muerto_tipo1" />
+        <AssociationConnector Association="bdagricolaModel.fk_poligono_usuario1" />
+        <AssociationConnector Association="bdagricolaModel.fk_vertice_poligono1" />
+        <AssociationConnector Association="bdagricolaModel.fk_raza_procedencia1" />
+        <AssociationConnector Association="bdagricolaModel.fk_tratamiento_animal_tipo_tratamiento1" />
+        <AssociationConnector Association="bdagricolaModel.fk_tratamiento_tipo_tratamiento1" />
+        <AssociationConnector Association="bdagricolaModel.fk_tratamiento_animal_tratador1" />
+        <AssociationConnector Association="bdagricolaModel.fk_tratamiento_tratador1" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,111 @@
+﻿@model IEnumerable<ProyectoV1.Models.ordena>
+@{
+    ViewBag.Title = "TipoPrueba";
+    Layout = "~/Views/Shared/_Template.cshtml";
+}
+<h2 align="center">Grafico de Produccion de Leche</h2>
+<br />
+
+@*<form method="post" id="filtro_form">
+    <div class="alert alert-warning contac2">
+        <h4 align="center">Buscar por Fecha</h4>
+        <div class="form-group contac2">
+
+
+            <div class="col-xs-12">
+                @Html.Label("Desde")
+                @Html.TextBox("fecha1", "", new { @class = "form-control", type = "date" })
+                <br />
+                @Html.Label("Hasta")
+                @Html.TextBox("fecha2", "", new { @class = "form-control", type = "date" })
+
+
+            </div>
+
+        </div>
+        <div align="center">
+            <button class="btn btn-success glyphicon glyphicon-search" type="submit" id="filtrografico"> Buscar</button>
+        </div>
+    </div>
+
+</form>*@
+
+<div id="chart_div" style="width:1000px; height:430px" class="contac"></div>
+
+
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script>
+
+    var datos = null;
+
+    $(document).ready(function () {
+        //Load Data Here
+
+        $.ajax({
+            url: '/Grafico/GetSalesData',
+            type: 'GET',
+            dataType: 'json',
+            data: '',
+            success: function (d) {
+                datos = d;
+            },
+            error: function () {
+                alert('Error!');
+            }
+        }).done(function () {
+            drawChart();
+        });
+
+    });
+    $('#filtro_form').submit(function (e) {
+        e.preventDefault();
+        var jsonData = JSON.stringify(vertices);
+        console.log(jsonData);
+        $.ajax({
+            url: "/Gps/CrearTerrenoJSON",
+            type: "POST",
+            dataType: 'json',
+            data: jsonData,
+            contentType: 'aplication/json; chartset=utf-8',
+            success: function (response) { },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                console.log("errorrrr:       " + textStatus + "   " + errorThrown);
+            }
+        });
+        //alert("terreno guardado con Exito!");
+    });
+
+
+    function drawChart() {
+
+        google.charts.load('current', { packages: ['corechart', 'bar'] });
+        google.charts.setOnLoadCallback(drawAxisTickColors);
+
+    }
+
+
+    function drawAxisTickColors() {
+
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Fecha');
+        data.addColumn('number', 'Mañana');
+        data.addColumn('number', 'Tarde');
+        data.addRows(datos);
+        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+        chart.draw(data);
+
+    }
+
+</script>
+
+<style>
+    .contac {
+        float: left;
+    }
+
+    .contac2 {
+        float: right;
+    }
+</style>

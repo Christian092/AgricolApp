@@ -1,0 +1,76 @@
+﻿@model IEnumerable<ProyectoV1.Models.usuario>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Template.cshtml";
+}
+<link rel="stylesheet" type="text/css" href="/Content/sweetalert/sweetalert.css">
+<script src="~/Content/sweetalert/sweetalert.min.js"></script>
+<div class="col-md-pull-12">
+        
+    <div id="myCarousel" class="carousel slide col-md-12" data-ride="carousel" align="center">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            <div class="item active">
+                <img src="~/Content/Image/grafico.png" alt="Chania" height="50">
+                <div class="carousel-caption">
+                    <h3>Graficos para el análisis de datos</h3>
+                </div>
+            </div>
+
+            <div class="item" width="100" height="100">
+                <img src="~/Content/Image/gpsportada.png" alt="Chicago">
+                <div class="carousel-caption">
+                    <h3>Ubicacion en Tiempo Real</h3>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Left and right controls -->
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            <span class="sr-only">Anterior</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+            <span class="sr-only">Siguiente</span>
+        </a>
+
+    </div>
+    
+
+   
+</div>
+
+@{
+    var message = TempData["notice"] ?? string.Empty;
+   
+}
+
+
+<script type="text/javascript">
+    
+    var message = '@message';
+    if (message)
+        sweetAlert({
+            message,
+            title: message,
+            text: "La Alerta se Cerrará en 20 Segundos o Presiona el Botón",
+            imageUrl: "/Content/Image/images.png",
+            timer: 20000,
+            animation: true,
+            showConfirmButton: true
+        });
+
+   
+
+</script>

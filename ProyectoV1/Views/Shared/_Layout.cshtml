@@ -1,0 +1,129 @@
+﻿@model ProyectoV1.Models.usuario
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AgricolApp</title>
+    <!-- Bootstrap Styles-->
+    <link href="~/Content/Template/assets/css/bootstrap.css" rel="stylesheet" />
+    <!-- FontAwesome Styles-->
+    <link href="~/Content/Template/assets/css/font-awesome.css" rel="stylesheet" />
+    <!-- Morris Chart Styles-->
+    <link href="~/Content/Template/assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+    <!-- Custom Styles-->
+    <link href="~/Content/Template/assets/css/custom-styles.css" rel="stylesheet" />
+    <!-- Google Fonts-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBggVblEQn4OdqWHAi6llaUEdf7YEHUxuw&sensor=false&libraries=drawing"></script>
+    @Scripts.Render("~/bundles/gmaps")
+    @Scripts.Render("~/bundles/jquerymin")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+</head>
+
+<body>
+
+
+    <div id="wrapper">
+       
+            <nav class="navbar navbar-default top-navbar" role="navigation">
+            <div class="navbar-header contac">
+
+                <a class="navbar-brand" align="center">AgricolApp@*<img src="" width="45" height="45">*@</a>
+
+            </div>
+                <br />
+            <div class="contac2" align="center">
+                    @using (Html.BeginForm())
+            {
+                        @Html.AntiForgeryToken()
+
+
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger color" })
+                        <form accept-charset="UTF-8" role="form">
+                            <fieldset>
+                                <div class="form-group col-xs-4">
+
+                                    @Html.EditorFor(model => model.rut, new { htmlAttributes = new { @class = "form-control", @placeholder = "Rut" } })
+                                    
+                                    @Html.ValidationMessageFor(model => model.rut,"", new { @class = "color" })
+                                </div>
+                                <div class="form-group col-xs-4">
+                                    @Html.PasswordFor(m => m.clave, new { @class = "form-control", @placeholder = "Contraseña" })
+                                   
+                                    @Html.ValidationMessageFor(model => model.clave, String.Empty, new { @class = "has-error color" })
+                                </div>
+
+                                <div class="col-xs-4">
+                                    <input class="btn-sm btn-success btn-block " type="submit" value="Iniciar Sesión">
+                                </div>
+
+                            </fieldset>
+                        </form>
+
+
+                    }
+                </div>
+            </nav>
+        </div>
+        
+        
+        
+        <!--/. NAV TOP  -->
+        
+        <!-- /. NAV SIDE  -->
+
+    
+        <div>
+            <div class="col-sm-push-3" style="background-color:lavender;" size="">
+                @RenderBody()
+            </div>
+        </div>
+   
+
+               
+
+
+                <!-- /. ROW  -->
+                <!-- /. ROW  -->
+                <!-- /. ROW  -->
+
+    
+            <!-- /. PAGE INNER  -->
+   
+        <!-- /. PAGE WRAPPER  -->
+
+    <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+    <script src="~/Content/Template/assets/js/jquery-1.10.2.js"></script>
+    <!-- Bootstrap Js -->
+    <script src="~/Content/Template/assets/js/bootstrap.min.js"></script>
+    <!-- Metis Menu Js -->
+    <script src="~/Content/Template/assets/js/jquery.metisMenu.js"></script>
+    <!-- Morris Chart Js -->
+    <script src="~/Content/Template/assets/js/morris/raphael-2.1.0.min.js"></script>
+    <script src="~/Content/Template/assets/js/morris/morris.js"></script>
+    <!-- Custom Js -->
+    <script src="~/Content/Template/assets/js/custom-scripts.js"></script>
+    <style>
+        .contac {
+            float: left;
+        }
+
+        .contac2 {
+            float: right;
+        }
+        .color{
+           color:red;
+        }
+    </style>
+</body > 
+</html >
+        

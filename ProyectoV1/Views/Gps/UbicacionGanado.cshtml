@@ -1,0 +1,165 @@
+﻿@model IEnumerable<ProyectoV1.Models.gps>
+@using System.Threading;
+@using System.Globalization;
+
+@{
+    ViewBag.Title = "UbicacionGanado";
+    Layout = "~/Views/Shared/_Template.cshtml";
+    Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+}
+
+<script language="javascript" type="text/javascript">
+    Notification.requestPermission();
+
+    var map;
+    $(document).ready(function () {
+        var terreno;
+        var inside = [], outside=[];
+
+        map = new GMaps({
+            el: '#map',
+            lat: -12.043333,
+            lng: -77.028333,
+            mapType: 'satellite'
+        });
+        //Actualizacion periodica de la funcion que llama a la base de datos la lista de GPS
+        setInterval(gpsLoad, 3000);
+        //Obtencion del poligono a la base de datos
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: "/Gps/GetTerrenoyGps",
+            success: function (data) {
+                var json = JSON.parse(data)
+                gps = json.Marcadores;
+                terreno = json.vertices;
+                console.log(Object.keys(gps).length);//codigo para contar el array
+
+                var poligono = [];
+                //agregando poligonos al mapa
+                if (json.vertices.length > 0) {
+                    var items = json.vertices, contador = json.vertices.length;
+                    for (var i = 0; i < contador; i++) {
+                        var item = items[i];
+                        if (item.latitud != undefined && item.longitud != undefined) {
+                            var latlng = new google.maps.LatLng(item.latitud, item.longitud);
+                            poligono.push(latlng);
+                        }
+                    }
+                }
+                //Graficando poligono en mapa
+                polygon = map.drawPolygon({
+
+                    paths: poligono,
+                    strokeColor: '#ed0000',
+                    strokeOpacity: 1,
+                    strokeWeight: 1,
+                    fillColor: '#2F4F4F',
+                    fillOpacity: 0.6
+                });
+                map.fitLatLngBounds(poligono);
+            }
+
+        });
+
+        function gpsLoad() {
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "/Gps/IsPointInPolygonWeb",
+                success: function (data) {
+                    var json = JSON.parse(data)
+                    inside = json.inside;
+                    outside = json.outside;
+
+                    console.log(Object.keys(inside).length);//codigo para contar el array
+                    console.log(Object.keys(outside).length);
+
+                    map.removeMarkers();
+                    var items;
+                    var bounds = [];
+
+
+                    if (inside.length > 0 || outside.length > 0)
+                    {
+                        for (var i = 0; i < inside.length; i++)
+                        {
+                            var item = inside[i];
+                            if (item.latitud != undefined && item.longitud != undefined)
+                            {
+                                var latlng = new google.maps.LatLng(item.latitud, item.longitud);
+                                bounds.push(latlng);
+                                var image = {
+                                    url: '@Url.Content("~/Content/Image/animal_Inside.png")', // url
+                                    scaledSize: new google.maps.Size(40, 40), // scaled size
+                                    origin: new google.maps.Point(0, 0), // origin
+                                    anchor: new google.maps.Point(0, 0) // anchor
+                                };
+                                map.addMarker({
+                                    lat: item.latitud,
+                                    lng: item.longitud,
+                                    icon: image,
+                                    title: 'Marker with InfoWindow ' + item.id,
+                                    animal: item.id,
+                                    infoWindow: {
+                                        content: 'Animal N° ' + item.animal_Id
+                                    },
+                                    draggable: true
+                                });
+                            }
+                        }
+                        //aqui termina el for
+
+                        for (var i = 0; i < outside.length; i++) {
+                            var item = outside[i];
+                            if (item.latitud != undefined && item.longitud != undefined) {
+                                var latlng = new google.maps.LatLng(item.latitud, item.longitud);
+                                bounds.push(latlng);
+                                var image = {
+                                    url: '@Url.Content("~/Content/Image/animal_Outside.png")', // url
+                                    scaledSize: new google.maps.Size(40, 40), // scaled size
+                                    origin: new google.maps.Point(0, 0), // origin
+                                    anchor: new google.maps.Point(0, 0) // anchor
+                                };
+                                map.addMarker({
+                                    lat: item.latitud,
+                                    lng: item.longitud,
+                                    icon: image,
+                                    title: 'Marker with InfoWindow ' + item.id,
+                                    animal: item.id,
+                                    infoWindow: {
+                                        content: 'Animal N° ' + item.animal_Id
+                                    },
+                                    draggable:true
+                                });
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        console.log("Holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        console.log(outside);
+    });
+</script>
+<div class="container">
+    <br />
+    <div class="panel panel-primary">
+        <div class="panel panel-heading">Mapa de Ganado</div>
+        <div class="panel panel-body">
+            <div class="col-md-10">
+                <div class="form-group">
+                    <div id="map" style="width:900px; height:500px;"></div>
+
+                    <div id="info"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

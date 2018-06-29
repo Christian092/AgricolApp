@@ -1,0 +1,79 @@
+﻿@model ProyectoV1.Models.animal
+@using ProyectoV1.Helpers
+@{
+    ViewBag.Title = "CodigoQR";
+    Layout = "~/Views/Shared/_Template.cshtml";
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
+
+<div id="cajon1">
+    <h2 align="center">Codigo QR del Animal <text>@Html.DisplayFor(model => model.codigo_sag)</text></h2>
+    <hr />
+
+    <div id="content" align="center">
+
+        @Html.GenerateQrCode2(Model.codigo_sag)
+    </div>
+
+</div>
+<div id="cajon2" >
+    <hr />
+    <hr />
+    <hr />
+    <hr />
+    <hr />
+    <hr />
+    <div id="button" style="margin-top:50px" align="center">
+        <button  id="cmd" class="btn-lg btn-danger glyphicon glyphicon-export" onclick="run()"> Exportar a PDF</button>
+    </div>
+</div>
+
+@{
+    var nombrePdf = "QR"+ Html.DisplayFor(model => model.codigo_sag) + ".pdf";
+}
+
+<script lang="javascript" type="text/javascript">
+
+
+function run()
+ {
+    var pdf = new jsPDF('p', 'pt', 'letter'),
+    source = $('#content')[0],
+    margins = {
+        top: 30,
+        bottom: 30,
+        left: 30,
+        right: 30,
+        width: 400
+    };
+
+pdf.fromHTML(
+        source,
+        margins.left,
+        margins.top,
+        {
+        'width': margins.width
+        },
+        function (dispose) {
+            pdf.save('@nombrePdf');
+        },
+        margins
+   );
+};
+
+
+</script>
+<style>
+    #cajon1{
+float:left;
+
+}
+#cajon2{
+float:inherit;
+
+
+}
+</style>
+
+

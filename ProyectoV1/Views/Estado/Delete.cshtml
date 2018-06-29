@@ -1,0 +1,32 @@
+﻿@model ProyectoV1.Models.estado
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Template.cshtml";
+}
+<h3>¿Seguro quieres eliminar este Estado?</h3>
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Estado
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <div align="center"><h4><font color="red">@ViewBag.Error</font></h4></div>
+            <button type="submit" class="btn btn-danger glyphicon glyphicon-trash"> Eliminar</button>
+            @Html.ActionLink(" Volver al Inicio", "Index", " ", htmlAttributes: new { @class = "btn btn-success glyphicon glyphicon-arrow-left" })
+        </div>
+    }
+</div>

@@ -1,0 +1,117 @@
+﻿@using ProyectoV1.Utils;
+@{
+    ViewBag.Title = "GraficoGanancias";
+    Layout = "~/Views/Shared/_Template.cshtml";
+}
+
+<h2>Recaudaciones por Ventas de Animales</h2>
+<br />
+
+<div>
+    <div class="contac" id="visualization" style="width: 650px; height: 500px;">
+
+    </div>
+    <div class="contac2">
+        @{
+            var totalGanancias = Shared.TotalGanancias();
+
+        }
+        <div class="alert alert-warning contac2">
+            <FONT FACE="impact" SIZE=5 COLOR="black">
+                Recaudacion Historica = $@totalGanancias
+            </FONT>
+        </div>
+
+
+
+
+    </div>
+</div>
+
+<style>
+    .contac {
+        float: left;
+    }
+
+    .contac2 {
+        float: right;
+    }
+
+    .div1 {
+        display: inline-block;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+    }
+</style>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+<script>
+                    $(document).ready(function () {
+                        //Load Data Here
+                        var chartData = null;
+                        $.ajax({
+                            url: '/Grafico/ObtenerGanancias',
+                            type: 'GET',
+                            dataType: 'json',
+                            data: '',
+                            success: function (d) {
+                                chartData = d;
+                            },
+                            error: function () {
+                                alert('Error!');
+                            }
+                        }).done(function () {
+                            console.log(chartData);
+                            drawChart(chartData);
+                        });
+                    });
+
+                    function drawChart(d) {
+                        var chartData = d;
+                        var data = null;
+                        data = google.visualization.arrayToDataTable(chartData);
+
+                        var view = new google.visualization.DataView(data);
+                        view.setColumns(
+                        [0,
+                            {
+                                type: 'number',
+                                label: data.getColumnLabel(0),
+                                calc: function () { return 0; }
+                            },
+                            {
+                                type: 'number',
+                                label: data.getColumnLabel(1),
+                                calc: function () { return 0; }
+                            }
+                        ]);
+
+                        var chart = new google.visualization.ColumnChart(document.getElementById('visualization'));
+                        var options = {
+                            title: 'RECAUDACIONES POR VENTAS DE ANIMALES ($)',
+                            is3D: true,
+                            legend: 'bottom',
+                            hAxis: {
+                                title: 'Año'
+
+                            },
+                            vAxis: {
+
+                                title: 'Precio', titleTextStyle: { color: 'black' }
+                            },
+
+                            animation: {
+                                duration: 3000
+                            }
+                        };
+
+                        var runFirstTime = google.visualization.events.addListener(chart, 'ready', function () {
+                            google.visualization.events.removeListener(runFirstTime);
+                            chart.draw(data, options);
+                        });
+
+                        chart.draw(view, options);
+                    }
+                    google.load('visualization', '1', { packages: ['corechart'] });
+</script>

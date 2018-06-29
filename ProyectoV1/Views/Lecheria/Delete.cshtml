@@ -1,0 +1,67 @@
+﻿@model ProyectoV1.Models.lecheria
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Template.cshtml";
+}
+
+
+<h3>¿Seguro quieres eliminar esta Lechería?</h3>
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.capacidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.capacidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ordenas_diarias)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ordenas_diarias)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cantidad_trabajadores)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cantidad_trabajadores)
+        </dd>
+
+        <dt>
+            Fabricante
+            @*@Html.DisplayNameFor(model => model.fabricante.nombre)*@
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fabricante.nombre)
+        </dd>
+
+        <dt>
+            Tipo
+            @*@Html.DisplayNameFor(model => model.tipo_lecheria.nombre)*@
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tipo_lecheria.nombre)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <div align="center"><h4><font color="red">@ViewBag.Error</font></h4></div>
+            <button type="submit" class="btn btn-danger glyphicon glyphicon-trash"> Eliminar</button>
+            @Html.ActionLink(" Volver al Inicio", "Index", " ", htmlAttributes: new { @class = "btn btn-success glyphicon glyphicon-arrow-left" })
+        </div>
+    }
+</div>

@@ -1,0 +1,148 @@
+﻿@model IEnumerable<ProyectoV1.Models.ordena>
+@{
+    ViewBag.Title = "GraficoProduccion";
+    Layout = "~/Views/Shared/_Template.cshtml";
+}
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="https://www.gstatic.com/charts/loader.js"></script>
+<div id="dashboard">
+    <div id="chart_div"></div>
+    <div id="control_div"></div>
+</div>
+
+<script>
+    var datos = null;
+
+    $(document).ready(function () {
+        //Load Data Here
+
+        $.ajax({
+            url: '/Grafico/GetSalesData',
+            type: 'GET',
+            dataType: 'json',
+            data: '',
+            success: function (d) {
+                datos = d;
+            },
+            error: function () {
+                alert('Error!');
+            }
+        }).done(function () {
+            drawChart();
+        });
+
+    });
+
+
+
+
+
+    function drawChart() {
+
+        google.charts.load('current', { packages: ['corechart', 'bar'] });
+        google.charts.setOnLoadCallback(drawAxisTickColors);
+
+    }
+
+
+    function drawAxisTickColors() {
+
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Fecha');
+        data.addColumn('number', 'Mañana');
+        data.addColumn('number', 'Tarde');
+        data.addRows(datos);
+        var control = new google.visualization.ControlWrapper({
+            controlType: 'ChartRangeFilter',
+            containerId: 'control_div',
+            options: {
+                filterColumnIndex: 0,
+                ui: {
+                    chartOptions: {
+                        height: 50,
+                        width: 600,
+                        chartArea: {
+                            width: '80%'
+                        }
+                    }
+                }
+            }
+        });
+
+        var options = {
+            title: 'Producción de Leche',
+            focusTarget: 'category',
+            hAxis: {
+                title: 'Fecha',
+                textStyle: {
+                    fontSize: 14,
+                    color: '#053061',
+                    bold: true,
+                    italic: false
+                },
+                titleTextStyle: {
+                    fontSize: 18,
+                    color: '#053061',
+                    bold: true,
+                    italic: false
+                }
+            },
+            vAxis: {
+                title: 'Litros',
+                textStyle: {
+                    fontSize: 18,
+                    color: '#67001f',
+                    bold: false,
+                    italic: false
+                },
+                titleTextStyle: {
+                    fontSize: 18,
+                    color: '#67001f',
+                    bold: true,
+                    italic: false
+                }
+            }
+        function setOptions() {
+            var firstDate;
+            var lastDate;
+            var v = control.getState();
+
+            if (v.range) {
+                document.getElementById('dbgchart').innerHTML = v.range.start + ' to ' + v.range.end;
+                firstDate = new Date(v.range.start.getTime() + 1);
+                lastDate = new Date(v.range.end.getTime() - 1);
+                data.setValue(v.range.start.getMonth(), 0, firstDate);
+                data.setValue(v.range.end.getMonth(), 0, lastDate);
+            } else {
+                firstDate = data.getValue(0, 0);
+                lastDate = data.getValue(data.getNumberOfRows() - 1, 0);
+            }
+
+            var ticks = [];
+            for (var i = firstDate.getMonth(); i <= lastDate.getMonth(); i++) {
+                ticks.push(data.getValue(i, 0));
+            }
+
+            chart.setOption('hAxis.ticks', ticks);
+            chart.setOption('hAxis.viewWindow.min', firstDate);
+            chart.setOption('hAxis.viewWindow.max', lastDate);
+            if (dash) {
+                chart.draw();
+            }
+        }
+
+        setOptions();
+        google.visualization.events.addListener(control, 'statechange', setOptions);
+        };
+
+        var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+
+        var dash = new google.visualization.Dashboard(document.getElementById('dashboard'));
+        dash.bind([control], [chart]);
+        dash.draw(data);
+
+        var grafico2 = new google.visualization.ColumnChart(document.getElementById('grafico2'));
+        grafico2.draw(data, options)
+    }
+</script>

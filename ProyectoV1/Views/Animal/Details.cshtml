@@ -1,0 +1,199 @@
+﻿@model ProyectoV1.Models.animal
+@using ProyectoV1.Helpers
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Template.cshtml";
+}
+<link rel="stylesheet" type="text/css" href="/Content/sweetalert/sweetalert.css">
+<script src="~/Content/sweetalert/sweetalert.min.js"></script>
+<h2>Detalles del Animal</h2>
+
+<div>
+    
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @*@Html.DisplayNameFor(model => model.codigo_sag)*@
+            Codigo S.A.G
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.codigo_sag)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.sexo)*@
+            Sexo
+        </dt>
+
+        <dd>
+            
+            @{
+                var sexo= "";
+                if (Model.sexo.Equals("M"))
+                {
+                    sexo = "Macho";
+
+                };
+                if (Model.sexo.Equals("H"))
+                {
+                    sexo = "Hembra";
+
+                };
+
+            }   
+            @sexo
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.fec_nac)*@
+            Nacimiento
+        </dt>
+
+        <dd>
+
+            @{
+                var fecha_nac = "";
+                if (Model.fec_nac.Equals(null))
+                {
+                    fecha_nac = "No registrada";
+                    @fecha_nac;
+
+                }
+                else
+                {
+                    @Html.DisplayFor(model => model.fec_nac);
+                }
+
+            }
+        </dd>
+        <dt>
+            @*@Html.DisplayNameFor(model => model.fec_nac)*@
+            Ingreso al Fundo
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_ing)
+        </dd>
+        <dt>
+            @*@Html.DisplayNameFor(model => model.estado.nombre)*@
+            Estado
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.estado.nombre)
+           
+            
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.raza.nombre)*@
+            Raza
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.raza.nombre)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.tipo.nombre)*@
+            Tipo
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tipo.nombre)
+        </dd>
+        <dt>
+            Edad
+        </dt>
+        <dd>
+
+
+            @{
+                string error;
+
+
+                DateTime? naci = Model.fec_nac;
+
+                if (naci == null)
+                {
+                    error = "Imposible Obtener";
+                    @error
+                }
+                else
+                {
+                    if (Model.estado.nombre.Equals("MUERTO"))
+                    {
+                        error = "Animal ya esta Muerto";
+                        @error
+                    }
+                    else
+                    {
+                        DateTime nac_fec = Convert.ToDateTime(naci);
+                        DateTime edad = DateTime.MinValue + (DateTime.Today - nac_fec);
+                        int año = edad.Year - 1;
+                        int meses = edad.Month - 1;
+                        int dias = edad.Day - 1;
+                        <div>@año Años / @meses Meses / @dias Dias</div>
+                    }
+
+                }
+
+            }
+
+        </dd>
+
+        <dt>
+            Codigo QR
+        </dt>
+
+        <dd>
+            @Html.GenerateQrCode(Model.codigo_sag)
+        </dd>
+        
+    </dl>
+</div>
+
+
+<p>
+    @{
+        if (Model.estado.nombre.Equals("VENDIDO") || Model.estado.nombre.Equals("MUERTO"))
+        {
+            @Html.ActionLink(" Editar", "Edit", new { id = Model.id }, htmlAttributes: new { @class = "btn btn-primary glyphicon glyphicon-pencil disabled" })
+        }
+        else
+        {
+            @Html.ActionLink(" Editar", "Edit", new { id = Model.id }, htmlAttributes: new { @class = "btn btn-primary glyphicon glyphicon-pencil" })
+        }
+    }
+    
+    @Html.ActionLink(" Volver al Inicio", "Index", " ", htmlAttributes: new { @class = "btn btn-success glyphicon glyphicon-arrow-left" })
+    @{
+        if (Model.estado.nombre.Equals("VENDIDO") || Model.estado.nombre.Equals("MUERTO"))
+        {
+            @Html.ActionLink(" Ver Codigo QR", "CodigoQR", new { id = Model.id }, htmlAttributes: new { @class = "btn btn-success glyphicon glyphicon-qrcode disabled" })
+        }
+        else
+        {
+            @Html.ActionLink(" Ver Codigo QR", "CodigoQR", new { id = Model.id }, htmlAttributes: new { @class = "btn btn-success glyphicon glyphicon-qrcode " })
+        }
+    }
+   
+</p>
+@{
+    var message = TempData["notice"] ?? string.Empty;
+}
+<script type="text/javascript">
+
+        var message = '@message';
+        if (message)
+            sweetAlert({message,
+                title: message,
+                text: "El Aviso se Cerrará en 20 Segundos o Presiona el Botón",
+                imageUrl: "/Content/Image/images.png",
+                timer: 20000,
+                animation: true,
+                showConfirmButton: true
+            });
+
+</script>

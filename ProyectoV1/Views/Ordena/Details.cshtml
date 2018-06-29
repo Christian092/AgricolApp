@@ -1,0 +1,67 @@
+﻿@model ProyectoV1.Models.ordena
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Template.cshtml";
+}
+
+<h2>Detalles de la Ordeña</h2>
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.litros)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.litros)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.jornada)
+        </dt>
+
+        <dd>
+            @{
+
+                var jornada = "";
+                if (Model.jornada.Equals("M"))
+                {
+                    jornada = "Mañana";
+
+                };
+                if (Model.jornada.Equals("T"))
+                {
+                    jornada = "Tarde";
+
+                };
+
+            }
+            @jornada
+        </dd>
+
+        <dt>
+            Lecheria
+            @*@Html.DisplayNameFor(model => model.lecheria.id)*@
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.lecheria.id)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink(" Editar", "Edit", new { id = Model.id }, htmlAttributes: new { @class = "btn btn-primary glyphicon glyphicon-pencil" })
+    @Html.ActionLink(" Volver al Inicio", "Index", " ", htmlAttributes: new { @class = "btn btn-success glyphicon glyphicon-arrow-left" })
+</p>

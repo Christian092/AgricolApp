@@ -1,0 +1,88 @@
+﻿@model IEnumerable<ProyectoV1.Models.animal>
+@using ProyectoV1.Helpers
+@{
+    ViewBag.Title = "CodigoQRAnimales";
+    Layout = "~/Views/Shared/_Template.cshtml";
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
+<div id="button" style="margin-top:50px" align="center">
+    <button id="cmd" class="btn-lg btn-danger glyphicon glyphicon-export" onclick="run()"> Exportar a PDF</button>
+</div>
+<table class="table table-hover" id="content" style="width:auto">
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <th>
+                @{
+                    var codigo = "";
+                    if (item.estado.nombre.Equals("VENDIDO") || item.estado.nombre.Equals("MUERTO"))
+                    {
+
+                    }
+                    else
+                    {
+                        codigo = item.codigo_sag;
+                    }
+                }
+                @codigo
+                
+            </th>
+            <th>
+                @{ 
+
+                    if (item.estado.nombre.Equals("VENDIDO") || item.estado.nombre.Equals("MUERTO"))
+                    {
+
+                    }
+                    else
+                    {
+                        @Html.GenerateQrCode3(item.codigo_sag)
+                    }
+                }
+                
+               
+                
+            </th>
+            
+        </tr>
+       
+    }
+
+</table>
+@{
+    var nombrePdf = "QR_Animales";
+}
+
+<script lang="javascript" type="text/javascript">
+
+
+function run()
+ {
+    var pdf = new jsPDF('p', 'pt', 'letter'),
+    source = $('#content')[0],
+    margins = {
+        top: 30,
+        bottom: 30,
+        left: 30,
+        right: 30,
+        width: 400
+    };
+
+pdf.fromHTML(
+        source,
+        margins.left,
+        margins.top,
+        {
+        'width': margins.width
+        },
+        function (dispose) {
+            pdf.save('@nombrePdf');
+        },
+        margins
+   );
+};
+
+
+</script>

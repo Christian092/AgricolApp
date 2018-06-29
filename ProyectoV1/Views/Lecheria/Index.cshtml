@@ -1,0 +1,74 @@
+﻿@model IEnumerable<ProyectoV1.Models.lecheria>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Template.cshtml";
+}
+
+<h2>Lecherias</h2>
+<br />
+
+<table class="table table-hover" style="width:auto">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.capacidad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ordenas_diarias)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cantidad_trabajadores)
+        </th>
+        <th>
+            Fabricante
+            @*@Html.DisplayNameFor(model => model.fabricante.nombre)*@
+        </th>
+        <th>
+            Tipo
+            @*@Html.DisplayNameFor(model => model.tipo_lecheria.nombre)*@
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.capacidad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ordenas_diarias)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cantidad_trabajadores)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fabricante.nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tipo_lecheria.nombre)
+            </td>
+            <td>
+                @Html.ActionLink(" ", "Edit", new { id = item.id }, htmlAttributes: new { @class = "btn btn-success glyphicon glyphicon-pencil" })
+
+                @Html.ActionLink(" ", "Details", new { id = item.id }, htmlAttributes: new { @class = "btn btn-info glyphicon glyphicon-zoom-in" })
+
+                @Html.ActionLink(" ", "Delete", new { id = item.id }, htmlAttributes: new { @class = "btn btn-danger glyphicon glyphicon-trash" })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@{
+    var bd = Model.Count();
+    if (bd >= 1)
+    {
+
+    }
+    else
+    {
+        @Html.ActionLink(" Añadir Lecheria", "Create", " ", htmlAttributes: new { @class = "btn btn-primary glyphicon glyphicon-plus" })
+
+    }
+}

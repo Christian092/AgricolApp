@@ -1,0 +1,1920 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="bdagricolaModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="alerta_mantencion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fecha" Type="date" Nullable="false" />
+          <Property Name="lecheria_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="animal">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codigo_sag" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="sexo" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="fec_nac" Type="date" />
+          <Property Name="fecha_ing" Type="date" Nullable="false" />
+          <Property Name="tipo_id" Type="int" Nullable="false" />
+          <Property Name="raza_id" Type="int" Nullable="false" />
+          <Property Name="estado_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="comprador">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="apellido" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="telefono" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="estado">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="fabricante">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="gps">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="latitud" Type="double" />
+          <Property Name="longitud" Type="double" />
+          <Property Name="imei" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="animal_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="historial_gps">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fecha" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="latitud" Type="double" Nullable="false" />
+          <Property Name="longitud" Type="double" Nullable="false" />
+          <Property Name="animal_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="inseminacion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fecha" Type="date" Nullable="false" />
+          <Property Name="inseminador_id" Type="int" Nullable="false" />
+          <Property Name="animal_id" Type="int" Nullable="false" />
+          <Property Name="procedencia_semen_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="inseminador">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="apellido" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="numero" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="lecheria">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="capacidad" Type="int" Nullable="false" />
+          <Property Name="ordenas_diarias" Type="int" Nullable="false" />
+          <Property Name="cantidad_trabajadores" Type="int" Nullable="false" />
+          <Property Name="tipo_lecheria_id" Type="int" Nullable="false" />
+          <Property Name="fabricante_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="medicamento">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="muerte">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fecha" Type="date" Nullable="false" />
+          <Property Name="causa" Type="varchar" MaxLength="100" />
+          <Property Name="animal_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="nace_muerto">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="parto_id" Type="int" Nullable="false" />
+          <Property Name="raza_id" Type="int" Nullable="false" />
+          <Property Name="tipo_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ordena">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fecha" Type="date" Nullable="false" />
+          <Property Name="litros" Type="int" Nullable="false" />
+          <Property Name="lecheria_id" Type="int" Nullable="false" />
+          <Property Name="jornada" Type="char" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="parto">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fecha" Type="date" Nullable="false" />
+          <Property Name="madre_id" Type="int" Nullable="false" />
+          <Property Name="animal_id" Type="int" />
+        </EntityType>
+        <EntityType Name="poligono">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="usuario_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="procedencia">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="procedencia_semen">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="raza">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="procedencia_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="secamiento">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fecha" Type="date" Nullable="false" />
+          <Property Name="cantidad_ubres" Type="int" Nullable="false" />
+          <Property Name="animal_id" Type="int" Nullable="false" />
+          <Property Name="medicamento_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tipo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tipo_lecheria">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tipo_tratamiento">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tratador">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="apellido" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="telefono" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="tratamiento">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fecha" Type="date" Nullable="false" />
+          <Property Name="tratador_id" Type="int" Nullable="false" />
+          <Property Name="tipo_tratamiento_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tratamiento_animal">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fecha" Type="date" Nullable="false" />
+          <Property Name="animal_id" Type="int" Nullable="false" />
+          <Property Name="tipo_tratamiento_id" Type="int" Nullable="false" />
+          <Property Name="tratador_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rut" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="clave" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="rol" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="venta">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fecha" Type="date" Nullable="false" />
+          <Property Name="pesaje" Type="int" Nullable="false" />
+          <Property Name="precio" Type="int" Nullable="false" />
+          <Property Name="animal_id" Type="int" Nullable="false" />
+          <Property Name="comprador_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vertice">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="latitud" Type="double" Nullable="false" />
+          <Property Name="longitud" Type="double" Nullable="false" />
+          <Property Name="poligono_id" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_alerta_mantencion_lecheria1">
+          <End Role="lecheria" Type="Self.lecheria" Multiplicity="1" />
+          <End Role="alerta_mantencion" Type="Self.alerta_mantencion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lecheria">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="alerta_mantencion">
+              <PropertyRef Name="lecheria_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_animal_estado1">
+          <End Role="estado" Type="Self.estado" Multiplicity="1" />
+          <End Role="animal" Type="Self.animal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="estado">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="animal">
+              <PropertyRef Name="estado_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_animal_raza1">
+          <End Role="raza" Type="Self.raza" Multiplicity="1" />
+          <End Role="animal" Type="Self.animal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="raza">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="animal">
+              <PropertyRef Name="raza_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_animal_tipo_animal1">
+          <End Role="tipo" Type="Self.tipo" Multiplicity="1" />
+          <End Role="animal" Type="Self.animal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="animal">
+              <PropertyRef Name="tipo_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_gps_animal1">
+          <End Role="animal" Type="Self.animal" Multiplicity="1" />
+          <End Role="gps" Type="Self.gps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="animal">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="gps">
+              <PropertyRef Name="animal_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_historial_gps_animal1">
+          <End Role="animal" Type="Self.animal" Multiplicity="1" />
+          <End Role="historial_gps" Type="Self.historial_gps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="animal">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="historial_gps">
+              <PropertyRef Name="animal_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_inseminacion_animal1">
+          <End Role="animal" Type="Self.animal" Multiplicity="1" />
+          <End Role="inseminacion" Type="Self.inseminacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="animal">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="inseminacion">
+              <PropertyRef Name="animal_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_inseminacion_inseminador1">
+          <End Role="inseminador" Type="Self.inseminador" Multiplicity="1" />
+          <End Role="inseminacion" Type="Self.inseminacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="inseminador">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="inseminacion">
+              <PropertyRef Name="inseminador_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_inseminacion_procedencia_semen1">
+          <End Role="procedencia_semen" Type="Self.procedencia_semen" Multiplicity="1" />
+          <End Role="inseminacion" Type="Self.inseminacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="procedencia_semen">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="inseminacion">
+              <PropertyRef Name="procedencia_semen_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_lecheria_fabricante1">
+          <End Role="fabricante" Type="Self.fabricante" Multiplicity="1" />
+          <End Role="lecheria" Type="Self.lecheria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="fabricante">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="lecheria">
+              <PropertyRef Name="fabricante_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_lecheria_tipo_lecheria1">
+          <End Role="tipo_lecheria" Type="Self.tipo_lecheria" Multiplicity="1" />
+          <End Role="lecheria" Type="Self.lecheria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo_lecheria">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="lecheria">
+              <PropertyRef Name="tipo_lecheria_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_muerte_animal1">
+          <End Role="animal" Type="Self.animal" Multiplicity="1" />
+          <End Role="muerte" Type="Self.muerte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="animal">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="muerte">
+              <PropertyRef Name="animal_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_muerto_parto1">
+          <End Role="parto" Type="Self.parto" Multiplicity="1" />
+          <End Role="nace_muerto" Type="Self.nace_muerto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="parto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="nace_muerto">
+              <PropertyRef Name="parto_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_muerto_raza1">
+          <End Role="raza" Type="Self.raza" Multiplicity="1" />
+          <End Role="nace_muerto" Type="Self.nace_muerto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="raza">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="nace_muerto">
+              <PropertyRef Name="raza_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_muerto_tipo1">
+          <End Role="tipo" Type="Self.tipo" Multiplicity="1" />
+          <End Role="nace_muerto" Type="Self.nace_muerto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="nace_muerto">
+              <PropertyRef Name="tipo_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ordena_lecheria1">
+          <End Role="lecheria" Type="Self.lecheria" Multiplicity="1" />
+          <End Role="ordena" Type="Self.ordena" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lecheria">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ordena">
+              <PropertyRef Name="lecheria_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_parto_animal1">
+          <End Role="animal" Type="Self.animal" Multiplicity="1" />
+          <End Role="parto" Type="Self.parto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="animal">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="parto">
+              <PropertyRef Name="madre_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_parto_animal2">
+          <End Role="animal" Type="Self.animal" Multiplicity="0..1" />
+          <End Role="parto" Type="Self.parto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="animal">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="parto">
+              <PropertyRef Name="animal_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_poligono_usuario1">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="poligono" Type="Self.poligono" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="poligono">
+              <PropertyRef Name="usuario_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_raza_procedencia1">
+          <End Role="procedencia" Type="Self.procedencia" Multiplicity="1" />
+          <End Role="raza" Type="Self.raza" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="procedencia">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="raza">
+              <PropertyRef Name="procedencia_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_secamiento_animal1">
+          <End Role="animal" Type="Self.animal" Multiplicity="1" />
+          <End Role="secamiento" Type="Self.secamiento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="animal">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="secamiento">
+              <PropertyRef Name="animal_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_secamiento_medicamento1">
+          <End Role="medicamento" Type="Self.medicamento" Multiplicity="1" />
+          <End Role="secamiento" Type="Self.secamiento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="medicamento">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="secamiento">
+              <PropertyRef Name="medicamento_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tratamiento_animal_animal1">
+          <End Role="animal" Type="Self.animal" Multiplicity="1" />
+          <End Role="tratamiento_animal" Type="Self.tratamiento_animal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="animal">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tratamiento_animal">
+              <PropertyRef Name="animal_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tratamiento_animal_tipo_tratamiento1">
+          <End Role="tipo_tratamiento" Type="Self.tipo_tratamiento" Multiplicity="1" />
+          <End Role="tratamiento_animal" Type="Self.tratamiento_animal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo_tratamiento">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tratamiento_animal">
+              <PropertyRef Name="tipo_tratamiento_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tratamiento_animal_tratador1">
+          <End Role="tratador" Type="Self.tratador" Multiplicity="1" />
+          <End Role="tratamiento_animal" Type="Self.tratamiento_animal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tratador">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tratamiento_animal">
+              <PropertyRef Name="tratador_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tratamiento_tipo_tratamiento1">
+          <End Role="tipo_tratamiento" Type="Self.tipo_tratamiento" Multiplicity="1" />
+          <End Role="tratamiento" Type="Self.tratamiento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo_tratamiento">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tratamiento">
+              <PropertyRef Name="tipo_tratamiento_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tratamiento_tratador1">
+          <End Role="tratador" Type="Self.tratador" Multiplicity="1" />
+          <End Role="tratamiento" Type="Self.tratamiento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tratador">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tratamiento">
+              <PropertyRef Name="tratador_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_venta_animal1">
+          <End Role="animal" Type="Self.animal" Multiplicity="1" />
+          <End Role="venta" Type="Self.venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="animal">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="venta">
+              <PropertyRef Name="animal_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_venta_comprador1">
+          <End Role="comprador" Type="Self.comprador" Multiplicity="1" />
+          <End Role="venta" Type="Self.venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="comprador">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="venta">
+              <PropertyRef Name="comprador_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_vertice_poligono1">
+          <End Role="poligono" Type="Self.poligono" Multiplicity="1" />
+          <End Role="vertice" Type="Self.vertice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="poligono">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="vertice">
+              <PropertyRef Name="poligono_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="bdagricolaModelStoreContainer">
+          <EntitySet Name="alerta_mantencion" EntityType="Self.alerta_mantencion" Schema="bdagricola" store:Type="Tables" />
+          <EntitySet Name="animal" EntityType="Self.animal" Schema="bdagricola" store:Type="Tables" />
+          <EntitySet Name="comprador" EntityType="Self.comprador" Schema="bdagricola" store:Type="Tables" />
+          <EntitySet Name="estado" EntityType="Self.estado" Schema="bdagricola" store:Type="Tables" />
+          <EntitySet Name="fabricante" EntityType="Self.fabricante" Schema="bdagricola" store:Type="Tables" />
+          <EntitySet Name="gps" EntityType="Self.gps" Schema="bdagricola" store:Type="Tables" />
+          <EntitySet Name="historial_gps" EntityType="Self.historial_gps" Schema="bdagricola" store:Type="Tables" />
+          <EntitySet Name="inseminacion" EntityType="Self.inseminacion" Schema="bdagricola" store:Type="Tables" />
+          <EntitySet Name="inseminador" EntityType="Self.inseminador" Schema="bdagricola" store:Type="Tables" />
+          <EntitySet Name="lecheria" EntityType="Self.lecheria" Schema="bdagricola" store:Type="Tables" />
+          <EntitySet Name="medicamento" EntityType="Self.medicamento" Schema="bdagricola" store:Type="Tables" />
+          <EntitySet Name="muerte" EntityType="Self.muerte" Schema="bdagricola" store:Type="Tables" />
+          <EntitySet Name="nace_muerto" EntityType="Self.nace_muerto" Schema="bdagricola" store:Type="Tables" />
+          <EntitySet Name="ordena" EntityType="Self.ordena" Schema="bdagricola" store:Type="Tables" />
+          <EntitySet Name="parto" EntityType="Self.parto" Schema="bdagricola" store:Type="Tables" />
+          <EntitySet Name="poligono" EntityType="Self.poligono" Schema="bdagricola" store:Type="Tables" />
+          <EntitySet Name="procedencia" EntityType="Self.procedencia" Schema="bdagricola" store:Type="Tables" />
+          <EntitySet Name="procedencia_semen" EntityType="Self.procedencia_semen" Schema="bdagricola" store:Type="Tables" />
+          <EntitySet Name="raza" EntityType="Self.raza" Schema="bdagricola" store:Type="Tables" />
+          <EntitySet Name="secamiento" EntityType="Self.secamiento" Schema="bdagricola" store:Type="Tables" />
+          <EntitySet Name="tipo" EntityType="Self.tipo" Schema="bdagricola" store:Type="Tables" />
+          <EntitySet Name="tipo_lecheria" EntityType="Self.tipo_lecheria" Schema="bdagricola" store:Type="Tables" />
+          <EntitySet Name="tipo_tratamiento" EntityType="Self.tipo_tratamiento" Schema="bdagricola" store:Type="Tables" />
+          <EntitySet Name="tratador" EntityType="Self.tratador" Schema="bdagricola" store:Type="Tables" />
+          <EntitySet Name="tratamiento" EntityType="Self.tratamiento" Schema="bdagricola" store:Type="Tables" />
+          <EntitySet Name="tratamiento_animal" EntityType="Self.tratamiento_animal" Schema="bdagricola" store:Type="Tables" />
+          <EntitySet Name="usuario" EntityType="Self.usuario" Schema="bdagricola" store:Type="Tables" />
+          <EntitySet Name="venta" EntityType="Self.venta" Schema="bdagricola" store:Type="Tables" />
+          <EntitySet Name="vertice" EntityType="Self.vertice" Schema="bdagricola" store:Type="Tables" />
+          <AssociationSet Name="fk_alerta_mantencion_lecheria1" Association="Self.fk_alerta_mantencion_lecheria1">
+            <End Role="lecheria" EntitySet="lecheria" />
+            <End Role="alerta_mantencion" EntitySet="alerta_mantencion" />
+          </AssociationSet>
+          <AssociationSet Name="fk_animal_estado1" Association="Self.fk_animal_estado1">
+            <End Role="estado" EntitySet="estado" />
+            <End Role="animal" EntitySet="animal" />
+          </AssociationSet>
+          <AssociationSet Name="fk_animal_raza1" Association="Self.fk_animal_raza1">
+            <End Role="raza" EntitySet="raza" />
+            <End Role="animal" EntitySet="animal" />
+          </AssociationSet>
+          <AssociationSet Name="fk_animal_tipo_animal1" Association="Self.fk_animal_tipo_animal1">
+            <End Role="tipo" EntitySet="tipo" />
+            <End Role="animal" EntitySet="animal" />
+          </AssociationSet>
+          <AssociationSet Name="fk_gps_animal1" Association="Self.fk_gps_animal1">
+            <End Role="animal" EntitySet="animal" />
+            <End Role="gps" EntitySet="gps" />
+          </AssociationSet>
+          <AssociationSet Name="fk_historial_gps_animal1" Association="Self.fk_historial_gps_animal1">
+            <End Role="animal" EntitySet="animal" />
+            <End Role="historial_gps" EntitySet="historial_gps" />
+          </AssociationSet>
+          <AssociationSet Name="fk_inseminacion_animal1" Association="Self.fk_inseminacion_animal1">
+            <End Role="animal" EntitySet="animal" />
+            <End Role="inseminacion" EntitySet="inseminacion" />
+          </AssociationSet>
+          <AssociationSet Name="fk_inseminacion_inseminador1" Association="Self.fk_inseminacion_inseminador1">
+            <End Role="inseminador" EntitySet="inseminador" />
+            <End Role="inseminacion" EntitySet="inseminacion" />
+          </AssociationSet>
+          <AssociationSet Name="fk_inseminacion_procedencia_semen1" Association="Self.fk_inseminacion_procedencia_semen1">
+            <End Role="procedencia_semen" EntitySet="procedencia_semen" />
+            <End Role="inseminacion" EntitySet="inseminacion" />
+          </AssociationSet>
+          <AssociationSet Name="fk_lecheria_fabricante1" Association="Self.fk_lecheria_fabricante1">
+            <End Role="fabricante" EntitySet="fabricante" />
+            <End Role="lecheria" EntitySet="lecheria" />
+          </AssociationSet>
+          <AssociationSet Name="fk_lecheria_tipo_lecheria1" Association="Self.fk_lecheria_tipo_lecheria1">
+            <End Role="tipo_lecheria" EntitySet="tipo_lecheria" />
+            <End Role="lecheria" EntitySet="lecheria" />
+          </AssociationSet>
+          <AssociationSet Name="fk_muerte_animal1" Association="Self.fk_muerte_animal1">
+            <End Role="animal" EntitySet="animal" />
+            <End Role="muerte" EntitySet="muerte" />
+          </AssociationSet>
+          <AssociationSet Name="fk_muerto_parto1" Association="Self.fk_muerto_parto1">
+            <End Role="parto" EntitySet="parto" />
+            <End Role="nace_muerto" EntitySet="nace_muerto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_muerto_raza1" Association="Self.fk_muerto_raza1">
+            <End Role="raza" EntitySet="raza" />
+            <End Role="nace_muerto" EntitySet="nace_muerto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_muerto_tipo1" Association="Self.fk_muerto_tipo1">
+            <End Role="tipo" EntitySet="tipo" />
+            <End Role="nace_muerto" EntitySet="nace_muerto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ordena_lecheria1" Association="Self.fk_ordena_lecheria1">
+            <End Role="lecheria" EntitySet="lecheria" />
+            <End Role="ordena" EntitySet="ordena" />
+          </AssociationSet>
+          <AssociationSet Name="fk_parto_animal1" Association="Self.fk_parto_animal1">
+            <End Role="animal" EntitySet="animal" />
+            <End Role="parto" EntitySet="parto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_parto_animal2" Association="Self.fk_parto_animal2">
+            <End Role="animal" EntitySet="animal" />
+            <End Role="parto" EntitySet="parto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_poligono_usuario1" Association="Self.fk_poligono_usuario1">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="poligono" EntitySet="poligono" />
+          </AssociationSet>
+          <AssociationSet Name="fk_raza_procedencia1" Association="Self.fk_raza_procedencia1">
+            <End Role="procedencia" EntitySet="procedencia" />
+            <End Role="raza" EntitySet="raza" />
+          </AssociationSet>
+          <AssociationSet Name="fk_secamiento_animal1" Association="Self.fk_secamiento_animal1">
+            <End Role="animal" EntitySet="animal" />
+            <End Role="secamiento" EntitySet="secamiento" />
+          </AssociationSet>
+          <AssociationSet Name="fk_secamiento_medicamento1" Association="Self.fk_secamiento_medicamento1">
+            <End Role="medicamento" EntitySet="medicamento" />
+            <End Role="secamiento" EntitySet="secamiento" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tratamiento_animal_animal1" Association="Self.fk_tratamiento_animal_animal1">
+            <End Role="animal" EntitySet="animal" />
+            <End Role="tratamiento_animal" EntitySet="tratamiento_animal" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tratamiento_animal_tipo_tratamiento1" Association="Self.fk_tratamiento_animal_tipo_tratamiento1">
+            <End Role="tipo_tratamiento" EntitySet="tipo_tratamiento" />
+            <End Role="tratamiento_animal" EntitySet="tratamiento_animal" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tratamiento_animal_tratador1" Association="Self.fk_tratamiento_animal_tratador1">
+            <End Role="tratador" EntitySet="tratador" />
+            <End Role="tratamiento_animal" EntitySet="tratamiento_animal" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tratamiento_tipo_tratamiento1" Association="Self.fk_tratamiento_tipo_tratamiento1">
+            <End Role="tipo_tratamiento" EntitySet="tipo_tratamiento" />
+            <End Role="tratamiento" EntitySet="tratamiento" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tratamiento_tratador1" Association="Self.fk_tratamiento_tratador1">
+            <End Role="tratador" EntitySet="tratador" />
+            <End Role="tratamiento" EntitySet="tratamiento" />
+          </AssociationSet>
+          <AssociationSet Name="fk_venta_animal1" Association="Self.fk_venta_animal1">
+            <End Role="animal" EntitySet="animal" />
+            <End Role="venta" EntitySet="venta" />
+          </AssociationSet>
+          <AssociationSet Name="fk_venta_comprador1" Association="Self.fk_venta_comprador1">
+            <End Role="comprador" EntitySet="comprador" />
+            <End Role="venta" EntitySet="venta" />
+          </AssociationSet>
+          <AssociationSet Name="fk_vertice_poligono1" Association="Self.fk_vertice_poligono1">
+            <End Role="poligono" EntitySet="poligono" />
+            <End Role="vertice" EntitySet="vertice" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="bdagricolaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="bdagricolaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="alerta_mantencion" EntityType="bdagricolaModel.alerta_mantencion" />
+          <EntitySet Name="animal" EntityType="bdagricolaModel.animal" />
+          <EntitySet Name="comprador" EntityType="bdagricolaModel.comprador" />
+          <EntitySet Name="estado" EntityType="bdagricolaModel.estado" />
+          <EntitySet Name="fabricante" EntityType="bdagricolaModel.fabricante" />
+          <EntitySet Name="gps" EntityType="bdagricolaModel.gps" />
+          <EntitySet Name="historial_gps" EntityType="bdagricolaModel.historial_gps" />
+          <EntitySet Name="inseminacion" EntityType="bdagricolaModel.inseminacion" />
+          <EntitySet Name="inseminador" EntityType="bdagricolaModel.inseminador" />
+          <EntitySet Name="lecheria" EntityType="bdagricolaModel.lecheria" />
+          <EntitySet Name="medicamento" EntityType="bdagricolaModel.medicamento" />
+          <EntitySet Name="muerte" EntityType="bdagricolaModel.muerte" />
+          <EntitySet Name="nace_muerto" EntityType="bdagricolaModel.nace_muerto" />
+          <EntitySet Name="ordena" EntityType="bdagricolaModel.ordena" />
+          <EntitySet Name="parto" EntityType="bdagricolaModel.parto" />
+          <EntitySet Name="poligono" EntityType="bdagricolaModel.poligono" />
+          <EntitySet Name="procedencia" EntityType="bdagricolaModel.procedencia" />
+          <EntitySet Name="procedencia_semen" EntityType="bdagricolaModel.procedencia_semen" />
+          <EntitySet Name="raza" EntityType="bdagricolaModel.raza" />
+          <EntitySet Name="secamiento" EntityType="bdagricolaModel.secamiento" />
+          <EntitySet Name="tipo" EntityType="bdagricolaModel.tipo" />
+          <EntitySet Name="tipo_lecheria" EntityType="bdagricolaModel.tipo_lecheria" />
+          <EntitySet Name="tipo_tratamiento" EntityType="bdagricolaModel.tipo_tratamiento" />
+          <EntitySet Name="tratador" EntityType="bdagricolaModel.tratador" />
+          <EntitySet Name="tratamiento" EntityType="bdagricolaModel.tratamiento" />
+          <EntitySet Name="tratamiento_animal" EntityType="bdagricolaModel.tratamiento_animal" />
+          <EntitySet Name="usuario" EntityType="bdagricolaModel.usuario" />
+          <EntitySet Name="venta" EntityType="bdagricolaModel.venta" />
+          <EntitySet Name="vertice" EntityType="bdagricolaModel.vertice" />
+          <AssociationSet Name="fk_alerta_mantencion_lecheria1" Association="bdagricolaModel.fk_alerta_mantencion_lecheria1">
+            <End Role="lecheria" EntitySet="lecheria" />
+            <End Role="alerta_mantencion" EntitySet="alerta_mantencion" />
+          </AssociationSet>
+          <AssociationSet Name="fk_animal_estado1" Association="bdagricolaModel.fk_animal_estado1">
+            <End Role="estado" EntitySet="estado" />
+            <End Role="animal" EntitySet="animal" />
+          </AssociationSet>
+          <AssociationSet Name="fk_animal_raza1" Association="bdagricolaModel.fk_animal_raza1">
+            <End Role="raza" EntitySet="raza" />
+            <End Role="animal" EntitySet="animal" />
+          </AssociationSet>
+          <AssociationSet Name="fk_animal_tipo_animal1" Association="bdagricolaModel.fk_animal_tipo_animal1">
+            <End Role="tipo" EntitySet="tipo" />
+            <End Role="animal" EntitySet="animal" />
+          </AssociationSet>
+          <AssociationSet Name="fk_gps_animal1" Association="bdagricolaModel.fk_gps_animal1">
+            <End Role="animal" EntitySet="animal" />
+            <End Role="gps" EntitySet="gps" />
+          </AssociationSet>
+          <AssociationSet Name="fk_historial_gps_animal1" Association="bdagricolaModel.fk_historial_gps_animal1">
+            <End Role="animal" EntitySet="animal" />
+            <End Role="historial_gps" EntitySet="historial_gps" />
+          </AssociationSet>
+          <AssociationSet Name="fk_inseminacion_animal1" Association="bdagricolaModel.fk_inseminacion_animal1">
+            <End Role="animal" EntitySet="animal" />
+            <End Role="inseminacion" EntitySet="inseminacion" />
+          </AssociationSet>
+          <AssociationSet Name="fk_muerte_animal1" Association="bdagricolaModel.fk_muerte_animal1">
+            <End Role="animal" EntitySet="animal" />
+            <End Role="muerte" EntitySet="muerte" />
+          </AssociationSet>
+          <AssociationSet Name="fk_parto_animal1" Association="bdagricolaModel.fk_parto_animal1">
+            <End Role="animal" EntitySet="animal" />
+            <End Role="parto" EntitySet="parto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_parto_animal2" Association="bdagricolaModel.fk_parto_animal2">
+            <End Role="animal" EntitySet="animal" />
+            <End Role="parto" EntitySet="parto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_secamiento_animal1" Association="bdagricolaModel.fk_secamiento_animal1">
+            <End Role="animal" EntitySet="animal" />
+            <End Role="secamiento" EntitySet="secamiento" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tratamiento_animal_animal1" Association="bdagricolaModel.fk_tratamiento_animal_animal1">
+            <End Role="animal" EntitySet="animal" />
+            <End Role="tratamiento_animal" EntitySet="tratamiento_animal" />
+          </AssociationSet>
+          <AssociationSet Name="fk_venta_animal1" Association="bdagricolaModel.fk_venta_animal1">
+            <End Role="animal" EntitySet="animal" />
+            <End Role="venta" EntitySet="venta" />
+          </AssociationSet>
+          <AssociationSet Name="fk_venta_comprador1" Association="bdagricolaModel.fk_venta_comprador1">
+            <End Role="comprador" EntitySet="comprador" />
+            <End Role="venta" EntitySet="venta" />
+          </AssociationSet>
+          <AssociationSet Name="fk_lecheria_fabricante1" Association="bdagricolaModel.fk_lecheria_fabricante1">
+            <End Role="fabricante" EntitySet="fabricante" />
+            <End Role="lecheria" EntitySet="lecheria" />
+          </AssociationSet>
+          <AssociationSet Name="fk_inseminacion_inseminador1" Association="bdagricolaModel.fk_inseminacion_inseminador1">
+            <End Role="inseminador" EntitySet="inseminador" />
+            <End Role="inseminacion" EntitySet="inseminacion" />
+          </AssociationSet>
+          <AssociationSet Name="fk_inseminacion_procedencia_semen1" Association="bdagricolaModel.fk_inseminacion_procedencia_semen1">
+            <End Role="procedencia_semen" EntitySet="procedencia_semen" />
+            <End Role="inseminacion" EntitySet="inseminacion" />
+          </AssociationSet>
+          <AssociationSet Name="fk_lecheria_tipo_lecheria1" Association="bdagricolaModel.fk_lecheria_tipo_lecheria1">
+            <End Role="tipo_lecheria" EntitySet="tipo_lecheria" />
+            <End Role="lecheria" EntitySet="lecheria" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ordena_lecheria1" Association="bdagricolaModel.fk_ordena_lecheria1">
+            <End Role="lecheria" EntitySet="lecheria" />
+            <End Role="ordena" EntitySet="ordena" />
+          </AssociationSet>
+          <AssociationSet Name="fk_secamiento_medicamento1" Association="bdagricolaModel.fk_secamiento_medicamento1">
+            <End Role="medicamento" EntitySet="medicamento" />
+            <End Role="secamiento" EntitySet="secamiento" />
+          </AssociationSet>
+          <AssociationSet Name="fk_muerto_parto1" Association="bdagricolaModel.fk_muerto_parto1">
+            <End Role="parto" EntitySet="parto" />
+            <End Role="nace_muerto" EntitySet="nace_muerto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_muerto_raza1" Association="bdagricolaModel.fk_muerto_raza1">
+            <End Role="raza" EntitySet="raza" />
+            <End Role="nace_muerto" EntitySet="nace_muerto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_muerto_tipo1" Association="bdagricolaModel.fk_muerto_tipo1">
+            <End Role="tipo" EntitySet="tipo" />
+            <End Role="nace_muerto" EntitySet="nace_muerto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_poligono_usuario1" Association="bdagricolaModel.fk_poligono_usuario1">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="poligono" EntitySet="poligono" />
+          </AssociationSet>
+          <AssociationSet Name="fk_vertice_poligono1" Association="bdagricolaModel.fk_vertice_poligono1">
+            <End Role="poligono" EntitySet="poligono" />
+            <End Role="vertice" EntitySet="vertice" />
+          </AssociationSet>
+          <AssociationSet Name="fk_raza_procedencia1" Association="bdagricolaModel.fk_raza_procedencia1">
+            <End Role="procedencia" EntitySet="procedencia" />
+            <End Role="raza" EntitySet="raza" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tratamiento_animal_tipo_tratamiento1" Association="bdagricolaModel.fk_tratamiento_animal_tipo_tratamiento1">
+            <End Role="tipo_tratamiento" EntitySet="tipo_tratamiento" />
+            <End Role="tratamiento_animal" EntitySet="tratamiento_animal" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tratamiento_tipo_tratamiento1" Association="bdagricolaModel.fk_tratamiento_tipo_tratamiento1">
+            <End Role="tipo_tratamiento" EntitySet="tipo_tratamiento" />
+            <End Role="tratamiento" EntitySet="tratamiento" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tratamiento_animal_tratador1" Association="bdagricolaModel.fk_tratamiento_animal_tratador1">
+            <End Role="tratador" EntitySet="tratador" />
+            <End Role="tratamiento_animal" EntitySet="tratamiento_animal" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tratamiento_tratador1" Association="bdagricolaModel.fk_tratamiento_tratador1">
+            <End Role="tratador" EntitySet="tratador" />
+            <End Role="tratamiento" EntitySet="tratamiento" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="alerta_mantencion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" />
+          <Property Name="lecheria_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="lecheria" Relationship="bdagricolaModel.fk_alerta_mantencion_lecheria1" FromRole="alerta_mantencion" ToRole="lecheria" />
+        </EntityType>
+        <EntityType Name="animal">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codigo_sag" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="sexo" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="fec_nac" Type="DateTime" />
+          <Property Name="fecha_ing" Type="DateTime" Nullable="false" />
+          <Property Name="tipo_id" Type="Int32" Nullable="false" />
+          <Property Name="raza_id" Type="Int32" Nullable="false" />
+          <Property Name="estado_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="estado" Relationship="bdagricolaModel.fk_animal_estado1" FromRole="animal" ToRole="estado" />
+          <NavigationProperty Name="raza" Relationship="bdagricolaModel.fk_animal_raza1" FromRole="animal" ToRole="raza" />
+          <NavigationProperty Name="tipo" Relationship="bdagricolaModel.fk_animal_tipo_animal1" FromRole="animal" ToRole="tipo" />
+          <NavigationProperty Name="gps" Relationship="bdagricolaModel.fk_gps_animal1" FromRole="animal" ToRole="gps" />
+          <NavigationProperty Name="historial_gps" Relationship="bdagricolaModel.fk_historial_gps_animal1" FromRole="animal" ToRole="historial_gps" />
+          <NavigationProperty Name="inseminacion" Relationship="bdagricolaModel.fk_inseminacion_animal1" FromRole="animal" ToRole="inseminacion" />
+          <NavigationProperty Name="muerte" Relationship="bdagricolaModel.fk_muerte_animal1" FromRole="animal" ToRole="muerte" />
+          <NavigationProperty Name="parto" Relationship="bdagricolaModel.fk_parto_animal1" FromRole="animal" ToRole="parto" />
+          <NavigationProperty Name="parto1" Relationship="bdagricolaModel.fk_parto_animal2" FromRole="animal" ToRole="parto" />
+          <NavigationProperty Name="secamiento" Relationship="bdagricolaModel.fk_secamiento_animal1" FromRole="animal" ToRole="secamiento" />
+          <NavigationProperty Name="tratamiento_animal" Relationship="bdagricolaModel.fk_tratamiento_animal_animal1" FromRole="animal" ToRole="tratamiento_animal" />
+          <NavigationProperty Name="venta" Relationship="bdagricolaModel.fk_venta_animal1" FromRole="animal" ToRole="venta" />
+        </EntityType>
+        <EntityType Name="comprador">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="apellido" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="venta" Relationship="bdagricolaModel.fk_venta_comprador1" FromRole="comprador" ToRole="venta" />
+        </EntityType>
+        <EntityType Name="estado">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="animal" Relationship="bdagricolaModel.fk_animal_estado1" FromRole="estado" ToRole="animal" />
+        </EntityType>
+        <EntityType Name="fabricante">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="lecheria" Relationship="bdagricolaModel.fk_lecheria_fabricante1" FromRole="fabricante" ToRole="lecheria" />
+        </EntityType>
+        <EntityType Name="gps">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="latitud" Type="Double" />
+          <Property Name="longitud" Type="Double" />
+          <Property Name="imei" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="animal_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="animal" Relationship="bdagricolaModel.fk_gps_animal1" FromRole="gps" ToRole="animal" />
+        </EntityType>
+        <EntityType Name="historial_gps">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" />
+          <Property Name="latitud" Type="Double" Nullable="false" />
+          <Property Name="longitud" Type="Double" Nullable="false" />
+          <Property Name="animal_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="animal" Relationship="bdagricolaModel.fk_historial_gps_animal1" FromRole="historial_gps" ToRole="animal" />
+        </EntityType>
+        <EntityType Name="inseminacion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" />
+          <Property Name="inseminador_id" Type="Int32" Nullable="false" />
+          <Property Name="animal_id" Type="Int32" Nullable="false" />
+          <Property Name="procedencia_semen_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="animal" Relationship="bdagricolaModel.fk_inseminacion_animal1" FromRole="inseminacion" ToRole="animal" />
+          <NavigationProperty Name="inseminador" Relationship="bdagricolaModel.fk_inseminacion_inseminador1" FromRole="inseminacion" ToRole="inseminador" />
+          <NavigationProperty Name="procedencia_semen" Relationship="bdagricolaModel.fk_inseminacion_procedencia_semen1" FromRole="inseminacion" ToRole="procedencia_semen" />
+        </EntityType>
+        <EntityType Name="inseminador">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="apellido" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="numero" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="inseminacion" Relationship="bdagricolaModel.fk_inseminacion_inseminador1" FromRole="inseminador" ToRole="inseminacion" />
+        </EntityType>
+        <EntityType Name="lecheria">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="capacidad" Type="Int32" Nullable="false" />
+          <Property Name="ordenas_diarias" Type="Int32" Nullable="false" />
+          <Property Name="cantidad_trabajadores" Type="Int32" Nullable="false" />
+          <Property Name="tipo_lecheria_id" Type="Int32" Nullable="false" />
+          <Property Name="fabricante_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="alerta_mantencion" Relationship="bdagricolaModel.fk_alerta_mantencion_lecheria1" FromRole="lecheria" ToRole="alerta_mantencion" />
+          <NavigationProperty Name="fabricante" Relationship="bdagricolaModel.fk_lecheria_fabricante1" FromRole="lecheria" ToRole="fabricante" />
+          <NavigationProperty Name="tipo_lecheria" Relationship="bdagricolaModel.fk_lecheria_tipo_lecheria1" FromRole="lecheria" ToRole="tipo_lecheria" />
+          <NavigationProperty Name="ordena" Relationship="bdagricolaModel.fk_ordena_lecheria1" FromRole="lecheria" ToRole="ordena" />
+        </EntityType>
+        <EntityType Name="medicamento">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="secamiento" Relationship="bdagricolaModel.fk_secamiento_medicamento1" FromRole="medicamento" ToRole="secamiento" />
+        </EntityType>
+        <EntityType Name="muerte">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" />
+          <Property Name="causa" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="animal_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="animal" Relationship="bdagricolaModel.fk_muerte_animal1" FromRole="muerte" ToRole="animal" />
+        </EntityType>
+        <EntityType Name="nace_muerto">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="parto_id" Type="Int32" Nullable="false" />
+          <Property Name="raza_id" Type="Int32" Nullable="false" />
+          <Property Name="tipo_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="parto" Relationship="bdagricolaModel.fk_muerto_parto1" FromRole="nace_muerto" ToRole="parto" />
+          <NavigationProperty Name="raza" Relationship="bdagricolaModel.fk_muerto_raza1" FromRole="nace_muerto" ToRole="raza" />
+          <NavigationProperty Name="tipo" Relationship="bdagricolaModel.fk_muerto_tipo1" FromRole="nace_muerto" ToRole="tipo" />
+        </EntityType>
+        <EntityType Name="ordena">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" />
+          <Property Name="litros" Type="Int32" Nullable="false" />
+          <Property Name="lecheria_id" Type="Int32" Nullable="false" />
+          <Property Name="jornada" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="lecheria" Relationship="bdagricolaModel.fk_ordena_lecheria1" FromRole="ordena" ToRole="lecheria" />
+        </EntityType>
+        <EntityType Name="parto">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" />
+          <Property Name="madre_id" Type="Int32" Nullable="false" />
+          <Property Name="animal_id" Type="Int32" />
+          <NavigationProperty Name="animal" Relationship="bdagricolaModel.fk_parto_animal1" FromRole="parto" ToRole="animal" />
+          <NavigationProperty Name="animal1" Relationship="bdagricolaModel.fk_parto_animal2" FromRole="parto" ToRole="animal" />
+          <NavigationProperty Name="nace_muerto" Relationship="bdagricolaModel.fk_muerto_parto1" FromRole="parto" ToRole="nace_muerto" />
+        </EntityType>
+        <EntityType Name="poligono">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="usuario_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="usuario" Relationship="bdagricolaModel.fk_poligono_usuario1" FromRole="poligono" ToRole="usuario" />
+          <NavigationProperty Name="vertice" Relationship="bdagricolaModel.fk_vertice_poligono1" FromRole="poligono" ToRole="vertice" />
+        </EntityType>
+        <EntityType Name="procedencia">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="raza" Relationship="bdagricolaModel.fk_raza_procedencia1" FromRole="procedencia" ToRole="raza" />
+        </EntityType>
+        <EntityType Name="procedencia_semen">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="inseminacion" Relationship="bdagricolaModel.fk_inseminacion_procedencia_semen1" FromRole="procedencia_semen" ToRole="inseminacion" />
+        </EntityType>
+        <EntityType Name="raza">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="procedencia_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="animal" Relationship="bdagricolaModel.fk_animal_raza1" FromRole="raza" ToRole="animal" />
+          <NavigationProperty Name="nace_muerto" Relationship="bdagricolaModel.fk_muerto_raza1" FromRole="raza" ToRole="nace_muerto" />
+          <NavigationProperty Name="procedencia" Relationship="bdagricolaModel.fk_raza_procedencia1" FromRole="raza" ToRole="procedencia" />
+        </EntityType>
+        <EntityType Name="secamiento">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" />
+          <Property Name="cantidad_ubres" Type="Int32" Nullable="false" />
+          <Property Name="animal_id" Type="Int32" Nullable="false" />
+          <Property Name="medicamento_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="animal" Relationship="bdagricolaModel.fk_secamiento_animal1" FromRole="secamiento" ToRole="animal" />
+          <NavigationProperty Name="medicamento" Relationship="bdagricolaModel.fk_secamiento_medicamento1" FromRole="secamiento" ToRole="medicamento" />
+        </EntityType>
+        <EntityType Name="tipo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="animal" Relationship="bdagricolaModel.fk_animal_tipo_animal1" FromRole="tipo" ToRole="animal" />
+          <NavigationProperty Name="nace_muerto" Relationship="bdagricolaModel.fk_muerto_tipo1" FromRole="tipo" ToRole="nace_muerto" />
+        </EntityType>
+        <EntityType Name="tipo_lecheria">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="lecheria" Relationship="bdagricolaModel.fk_lecheria_tipo_lecheria1" FromRole="tipo_lecheria" ToRole="lecheria" />
+        </EntityType>
+        <EntityType Name="tipo_tratamiento">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tratamiento_animal" Relationship="bdagricolaModel.fk_tratamiento_animal_tipo_tratamiento1" FromRole="tipo_tratamiento" ToRole="tratamiento_animal" />
+          <NavigationProperty Name="tratamiento" Relationship="bdagricolaModel.fk_tratamiento_tipo_tratamiento1" FromRole="tipo_tratamiento" ToRole="tratamiento" />
+        </EntityType>
+        <EntityType Name="tratador">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="apellido" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tratamiento_animal" Relationship="bdagricolaModel.fk_tratamiento_animal_tratador1" FromRole="tratador" ToRole="tratamiento_animal" />
+          <NavigationProperty Name="tratamiento" Relationship="bdagricolaModel.fk_tratamiento_tratador1" FromRole="tratador" ToRole="tratamiento" />
+        </EntityType>
+        <EntityType Name="tratamiento">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" />
+          <Property Name="tratador_id" Type="Int32" Nullable="false" />
+          <Property Name="tipo_tratamiento_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tipo_tratamiento" Relationship="bdagricolaModel.fk_tratamiento_tipo_tratamiento1" FromRole="tratamiento" ToRole="tipo_tratamiento" />
+          <NavigationProperty Name="tratador" Relationship="bdagricolaModel.fk_tratamiento_tratador1" FromRole="tratamiento" ToRole="tratador" />
+        </EntityType>
+        <EntityType Name="tratamiento_animal">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" />
+          <Property Name="animal_id" Type="Int32" Nullable="false" />
+          <Property Name="tipo_tratamiento_id" Type="Int32" Nullable="false" />
+          <Property Name="tratador_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="animal" Relationship="bdagricolaModel.fk_tratamiento_animal_animal1" FromRole="tratamiento_animal" ToRole="animal" />
+          <NavigationProperty Name="tipo_tratamiento" Relationship="bdagricolaModel.fk_tratamiento_animal_tipo_tratamiento1" FromRole="tratamiento_animal" ToRole="tipo_tratamiento" />
+          <NavigationProperty Name="tratador" Relationship="bdagricolaModel.fk_tratamiento_animal_tratador1" FromRole="tratamiento_animal" ToRole="tratador" />
+        </EntityType>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rut" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="clave" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="rol" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="poligono" Relationship="bdagricolaModel.fk_poligono_usuario1" FromRole="usuario" ToRole="poligono" />
+        </EntityType>
+        <EntityType Name="venta">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" />
+          <Property Name="pesaje" Type="Int32" Nullable="false" />
+          <Property Name="precio" Type="Int32" Nullable="false" />
+          <Property Name="animal_id" Type="Int32" Nullable="false" />
+          <Property Name="comprador_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="animal" Relationship="bdagricolaModel.fk_venta_animal1" FromRole="venta" ToRole="animal" />
+          <NavigationProperty Name="comprador" Relationship="bdagricolaModel.fk_venta_comprador1" FromRole="venta" ToRole="comprador" />
+        </EntityType>
+        <EntityType Name="vertice">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="latitud" Type="Double" Nullable="false" />
+          <Property Name="longitud" Type="Double" Nullable="false" />
+          <Property Name="poligono_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="poligono" Relationship="bdagricolaModel.fk_vertice_poligono1" FromRole="vertice" ToRole="poligono" />
+        </EntityType>
+        <Association Name="fk_alerta_mantencion_lecheria1">
+          <End Type="bdagricolaModel.lecheria" Role="lecheria" Multiplicity="1" />
+          <End Type="bdagricolaModel.alerta_mantencion" Role="alerta_mantencion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lecheria">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="alerta_mantencion">
+              <PropertyRef Name="lecheria_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_animal_estado1">
+          <End Type="bdagricolaModel.estado" Role="estado" Multiplicity="1" />
+          <End Type="bdagricolaModel.animal" Role="animal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="estado">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="animal">
+              <PropertyRef Name="estado_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_animal_raza1">
+          <End Type="bdagricolaModel.raza" Role="raza" Multiplicity="1" />
+          <End Type="bdagricolaModel.animal" Role="animal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="raza">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="animal">
+              <PropertyRef Name="raza_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_animal_tipo_animal1">
+          <End Type="bdagricolaModel.tipo" Role="tipo" Multiplicity="1" />
+          <End Type="bdagricolaModel.animal" Role="animal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="animal">
+              <PropertyRef Name="tipo_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_gps_animal1">
+          <End Type="bdagricolaModel.animal" Role="animal" Multiplicity="1" />
+          <End Type="bdagricolaModel.gps" Role="gps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="animal">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="gps">
+              <PropertyRef Name="animal_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_historial_gps_animal1">
+          <End Type="bdagricolaModel.animal" Role="animal" Multiplicity="1" />
+          <End Type="bdagricolaModel.historial_gps" Role="historial_gps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="animal">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="historial_gps">
+              <PropertyRef Name="animal_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_inseminacion_animal1">
+          <End Type="bdagricolaModel.animal" Role="animal" Multiplicity="1" />
+          <End Type="bdagricolaModel.inseminacion" Role="inseminacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="animal">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="inseminacion">
+              <PropertyRef Name="animal_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_muerte_animal1">
+          <End Type="bdagricolaModel.animal" Role="animal" Multiplicity="1" />
+          <End Type="bdagricolaModel.muerte" Role="muerte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="animal">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="muerte">
+              <PropertyRef Name="animal_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_parto_animal1">
+          <End Type="bdagricolaModel.animal" Role="animal" Multiplicity="1" />
+          <End Type="bdagricolaModel.parto" Role="parto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="animal">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="parto">
+              <PropertyRef Name="madre_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_parto_animal2">
+          <End Type="bdagricolaModel.animal" Role="animal" Multiplicity="0..1" />
+          <End Type="bdagricolaModel.parto" Role="parto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="animal">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="parto">
+              <PropertyRef Name="animal_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_secamiento_animal1">
+          <End Type="bdagricolaModel.animal" Role="animal" Multiplicity="1" />
+          <End Type="bdagricolaModel.secamiento" Role="secamiento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="animal">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="secamiento">
+              <PropertyRef Name="animal_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tratamiento_animal_animal1">
+          <End Type="bdagricolaModel.animal" Role="animal" Multiplicity="1" />
+          <End Type="bdagricolaModel.tratamiento_animal" Role="tratamiento_animal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="animal">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tratamiento_animal">
+              <PropertyRef Name="animal_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_venta_animal1">
+          <End Type="bdagricolaModel.animal" Role="animal" Multiplicity="1" />
+          <End Type="bdagricolaModel.venta" Role="venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="animal">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="venta">
+              <PropertyRef Name="animal_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_venta_comprador1">
+          <End Type="bdagricolaModel.comprador" Role="comprador" Multiplicity="1" />
+          <End Type="bdagricolaModel.venta" Role="venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="comprador">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="venta">
+              <PropertyRef Name="comprador_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_lecheria_fabricante1">
+          <End Type="bdagricolaModel.fabricante" Role="fabricante" Multiplicity="1" />
+          <End Type="bdagricolaModel.lecheria" Role="lecheria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="fabricante">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="lecheria">
+              <PropertyRef Name="fabricante_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_inseminacion_inseminador1">
+          <End Type="bdagricolaModel.inseminador" Role="inseminador" Multiplicity="1" />
+          <End Type="bdagricolaModel.inseminacion" Role="inseminacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="inseminador">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="inseminacion">
+              <PropertyRef Name="inseminador_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_inseminacion_procedencia_semen1">
+          <End Type="bdagricolaModel.procedencia_semen" Role="procedencia_semen" Multiplicity="1" />
+          <End Type="bdagricolaModel.inseminacion" Role="inseminacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="procedencia_semen">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="inseminacion">
+              <PropertyRef Name="procedencia_semen_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_lecheria_tipo_lecheria1">
+          <End Type="bdagricolaModel.tipo_lecheria" Role="tipo_lecheria" Multiplicity="1" />
+          <End Type="bdagricolaModel.lecheria" Role="lecheria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo_lecheria">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="lecheria">
+              <PropertyRef Name="tipo_lecheria_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ordena_lecheria1">
+          <End Type="bdagricolaModel.lecheria" Role="lecheria" Multiplicity="1" />
+          <End Type="bdagricolaModel.ordena" Role="ordena" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lecheria">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ordena">
+              <PropertyRef Name="lecheria_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_secamiento_medicamento1">
+          <End Type="bdagricolaModel.medicamento" Role="medicamento" Multiplicity="1" />
+          <End Type="bdagricolaModel.secamiento" Role="secamiento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="medicamento">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="secamiento">
+              <PropertyRef Name="medicamento_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_muerto_parto1">
+          <End Type="bdagricolaModel.parto" Role="parto" Multiplicity="1" />
+          <End Type="bdagricolaModel.nace_muerto" Role="nace_muerto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="parto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="nace_muerto">
+              <PropertyRef Name="parto_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_muerto_raza1">
+          <End Type="bdagricolaModel.raza" Role="raza" Multiplicity="1" />
+          <End Type="bdagricolaModel.nace_muerto" Role="nace_muerto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="raza">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="nace_muerto">
+              <PropertyRef Name="raza_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_muerto_tipo1">
+          <End Type="bdagricolaModel.tipo" Role="tipo" Multiplicity="1" />
+          <End Type="bdagricolaModel.nace_muerto" Role="nace_muerto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="nace_muerto">
+              <PropertyRef Name="tipo_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_poligono_usuario1">
+          <End Type="bdagricolaModel.usuario" Role="usuario" Multiplicity="1" />
+          <End Type="bdagricolaModel.poligono" Role="poligono" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="poligono">
+              <PropertyRef Name="usuario_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_vertice_poligono1">
+          <End Type="bdagricolaModel.poligono" Role="poligono" Multiplicity="1" />
+          <End Type="bdagricolaModel.vertice" Role="vertice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="poligono">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="vertice">
+              <PropertyRef Name="poligono_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_raza_procedencia1">
+          <End Type="bdagricolaModel.procedencia" Role="procedencia" Multiplicity="1" />
+          <End Type="bdagricolaModel.raza" Role="raza" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="procedencia">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="raza">
+              <PropertyRef Name="procedencia_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tratamiento_animal_tipo_tratamiento1">
+          <End Type="bdagricolaModel.tipo_tratamiento" Role="tipo_tratamiento" Multiplicity="1" />
+          <End Type="bdagricolaModel.tratamiento_animal" Role="tratamiento_animal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo_tratamiento">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tratamiento_animal">
+              <PropertyRef Name="tipo_tratamiento_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tratamiento_tipo_tratamiento1">
+          <End Type="bdagricolaModel.tipo_tratamiento" Role="tipo_tratamiento" Multiplicity="1" />
+          <End Type="bdagricolaModel.tratamiento" Role="tratamiento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo_tratamiento">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tratamiento">
+              <PropertyRef Name="tipo_tratamiento_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tratamiento_animal_tratador1">
+          <End Type="bdagricolaModel.tratador" Role="tratador" Multiplicity="1" />
+          <End Type="bdagricolaModel.tratamiento_animal" Role="tratamiento_animal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tratador">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tratamiento_animal">
+              <PropertyRef Name="tratador_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tratamiento_tratador1">
+          <End Type="bdagricolaModel.tratador" Role="tratador" Multiplicity="1" />
+          <End Type="bdagricolaModel.tratamiento" Role="tratamiento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tratador">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tratamiento">
+              <PropertyRef Name="tratador_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="bdagricolaModelStoreContainer" CdmEntityContainer="bdagricolaEntities">
+          <EntitySetMapping Name="alerta_mantencion">
+            <EntityTypeMapping TypeName="bdagricolaModel.alerta_mantencion">
+              <MappingFragment StoreEntitySet="alerta_mantencion">
+                <ScalarProperty Name="lecheria_id" ColumnName="lecheria_id" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="animal">
+            <EntityTypeMapping TypeName="bdagricolaModel.animal">
+              <MappingFragment StoreEntitySet="animal">
+                <ScalarProperty Name="estado_id" ColumnName="estado_id" />
+                <ScalarProperty Name="raza_id" ColumnName="raza_id" />
+                <ScalarProperty Name="tipo_id" ColumnName="tipo_id" />
+                <ScalarProperty Name="fecha_ing" ColumnName="fecha_ing" />
+                <ScalarProperty Name="fec_nac" ColumnName="fec_nac" />
+                <ScalarProperty Name="sexo" ColumnName="sexo" />
+                <ScalarProperty Name="codigo_sag" ColumnName="codigo_sag" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="comprador">
+            <EntityTypeMapping TypeName="bdagricolaModel.comprador">
+              <MappingFragment StoreEntitySet="comprador">
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="estado">
+            <EntityTypeMapping TypeName="bdagricolaModel.estado">
+              <MappingFragment StoreEntitySet="estado">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="fabricante">
+            <EntityTypeMapping TypeName="bdagricolaModel.fabricante">
+              <MappingFragment StoreEntitySet="fabricante">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="gps">
+            <EntityTypeMapping TypeName="bdagricolaModel.gps">
+              <MappingFragment StoreEntitySet="gps">
+                <ScalarProperty Name="animal_id" ColumnName="animal_id" />
+                <ScalarProperty Name="imei" ColumnName="imei" />
+                <ScalarProperty Name="longitud" ColumnName="longitud" />
+                <ScalarProperty Name="latitud" ColumnName="latitud" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="historial_gps">
+            <EntityTypeMapping TypeName="bdagricolaModel.historial_gps">
+              <MappingFragment StoreEntitySet="historial_gps">
+                <ScalarProperty Name="animal_id" ColumnName="animal_id" />
+                <ScalarProperty Name="longitud" ColumnName="longitud" />
+                <ScalarProperty Name="latitud" ColumnName="latitud" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="inseminacion">
+            <EntityTypeMapping TypeName="bdagricolaModel.inseminacion">
+              <MappingFragment StoreEntitySet="inseminacion">
+                <ScalarProperty Name="procedencia_semen_id" ColumnName="procedencia_semen_id" />
+                <ScalarProperty Name="animal_id" ColumnName="animal_id" />
+                <ScalarProperty Name="inseminador_id" ColumnName="inseminador_id" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="inseminador">
+            <EntityTypeMapping TypeName="bdagricolaModel.inseminador">
+              <MappingFragment StoreEntitySet="inseminador">
+                <ScalarProperty Name="numero" ColumnName="numero" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="lecheria">
+            <EntityTypeMapping TypeName="bdagricolaModel.lecheria">
+              <MappingFragment StoreEntitySet="lecheria">
+                <ScalarProperty Name="fabricante_id" ColumnName="fabricante_id" />
+                <ScalarProperty Name="tipo_lecheria_id" ColumnName="tipo_lecheria_id" />
+                <ScalarProperty Name="cantidad_trabajadores" ColumnName="cantidad_trabajadores" />
+                <ScalarProperty Name="ordenas_diarias" ColumnName="ordenas_diarias" />
+                <ScalarProperty Name="capacidad" ColumnName="capacidad" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="medicamento">
+            <EntityTypeMapping TypeName="bdagricolaModel.medicamento">
+              <MappingFragment StoreEntitySet="medicamento">
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="muerte">
+            <EntityTypeMapping TypeName="bdagricolaModel.muerte">
+              <MappingFragment StoreEntitySet="muerte">
+                <ScalarProperty Name="animal_id" ColumnName="animal_id" />
+                <ScalarProperty Name="causa" ColumnName="causa" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="nace_muerto">
+            <EntityTypeMapping TypeName="bdagricolaModel.nace_muerto">
+              <MappingFragment StoreEntitySet="nace_muerto">
+                <ScalarProperty Name="tipo_id" ColumnName="tipo_id" />
+                <ScalarProperty Name="raza_id" ColumnName="raza_id" />
+                <ScalarProperty Name="parto_id" ColumnName="parto_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ordena">
+            <EntityTypeMapping TypeName="bdagricolaModel.ordena">
+              <MappingFragment StoreEntitySet="ordena">
+                <ScalarProperty Name="jornada" ColumnName="jornada" />
+                <ScalarProperty Name="lecheria_id" ColumnName="lecheria_id" />
+                <ScalarProperty Name="litros" ColumnName="litros" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="parto">
+            <EntityTypeMapping TypeName="bdagricolaModel.parto">
+              <MappingFragment StoreEntitySet="parto">
+                <ScalarProperty Name="animal_id" ColumnName="animal_id" />
+                <ScalarProperty Name="madre_id" ColumnName="madre_id" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="poligono">
+            <EntityTypeMapping TypeName="bdagricolaModel.poligono">
+              <MappingFragment StoreEntitySet="poligono">
+                <ScalarProperty Name="usuario_id" ColumnName="usuario_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="procedencia">
+            <EntityTypeMapping TypeName="bdagricolaModel.procedencia">
+              <MappingFragment StoreEntitySet="procedencia">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="procedencia_semen">
+            <EntityTypeMapping TypeName="bdagricolaModel.procedencia_semen">
+              <MappingFragment StoreEntitySet="procedencia_semen">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="raza">
+            <EntityTypeMapping TypeName="bdagricolaModel.raza">
+              <MappingFragment StoreEntitySet="raza">
+                <ScalarProperty Name="procedencia_id" ColumnName="procedencia_id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="secamiento">
+            <EntityTypeMapping TypeName="bdagricolaModel.secamiento">
+              <MappingFragment StoreEntitySet="secamiento">
+                <ScalarProperty Name="medicamento_id" ColumnName="medicamento_id" />
+                <ScalarProperty Name="animal_id" ColumnName="animal_id" />
+                <ScalarProperty Name="cantidad_ubres" ColumnName="cantidad_ubres" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tipo">
+            <EntityTypeMapping TypeName="bdagricolaModel.tipo">
+              <MappingFragment StoreEntitySet="tipo">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tipo_lecheria">
+            <EntityTypeMapping TypeName="bdagricolaModel.tipo_lecheria">
+              <MappingFragment StoreEntitySet="tipo_lecheria">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tipo_tratamiento">
+            <EntityTypeMapping TypeName="bdagricolaModel.tipo_tratamiento">
+              <MappingFragment StoreEntitySet="tipo_tratamiento">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tratador">
+            <EntityTypeMapping TypeName="bdagricolaModel.tratador">
+              <MappingFragment StoreEntitySet="tratador">
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tratamiento">
+            <EntityTypeMapping TypeName="bdagricolaModel.tratamiento">
+              <MappingFragment StoreEntitySet="tratamiento">
+                <ScalarProperty Name="tipo_tratamiento_id" ColumnName="tipo_tratamiento_id" />
+                <ScalarProperty Name="tratador_id" ColumnName="tratador_id" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tratamiento_animal">
+            <EntityTypeMapping TypeName="bdagricolaModel.tratamiento_animal">
+              <MappingFragment StoreEntitySet="tratamiento_animal">
+                <ScalarProperty Name="tratador_id" ColumnName="tratador_id" />
+                <ScalarProperty Name="tipo_tratamiento_id" ColumnName="tipo_tratamiento_id" />
+                <ScalarProperty Name="animal_id" ColumnName="animal_id" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuario">
+            <EntityTypeMapping TypeName="bdagricolaModel.usuario">
+              <MappingFragment StoreEntitySet="usuario">
+                <ScalarProperty Name="rol" ColumnName="rol" />
+                <ScalarProperty Name="clave" ColumnName="clave" />
+                <ScalarProperty Name="rut" ColumnName="rut" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="venta">
+            <EntityTypeMapping TypeName="bdagricolaModel.venta">
+              <MappingFragment StoreEntitySet="venta">
+                <ScalarProperty Name="comprador_id" ColumnName="comprador_id" />
+                <ScalarProperty Name="animal_id" ColumnName="animal_id" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="pesaje" ColumnName="pesaje" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vertice">
+            <EntityTypeMapping TypeName="bdagricolaModel.vertice">
+              <MappingFragment StoreEntitySet="vertice">
+                <ScalarProperty Name="poligono_id" ColumnName="poligono_id" />
+                <ScalarProperty Name="longitud" ColumnName="longitud" />
+                <ScalarProperty Name="latitud" ColumnName="latitud" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

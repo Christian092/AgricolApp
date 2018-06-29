@@ -1,0 +1,33 @@
+﻿@model IEnumerable<ProyectoV1.Models.procedencia>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Template.cshtml";
+}
+
+<h2>Procedencias</h2>
+<hr />
+<table class="table table-hover" style="width:auto">
+    <tr>
+        <th>
+            Procedencia
+        </th>
+        
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.nombre)
+            </td>
+            <td>
+                @Html.ActionLink(" ", "Edit", new { id = item.id }, htmlAttributes: new { @class = "btn btn-success glyphicon glyphicon-pencil" })
+                @Html.ActionLink(" ", "Delete", new { id = item.id }, htmlAttributes: new { @class = "btn btn-danger glyphicon glyphicon-trash" })
+            </td>
+        </tr>
+    }
+
+</table>
+@Html.ActionLink(" Añadir Procedencia", "Create", " ", htmlAttributes: new { @class = "btn btn-primary glyphicon glyphicon-plus" })
+<a href="~/Animal/Create" class="btn btn-success glyphicon glyphicon-arrow-left"> Volver a Animal</a>

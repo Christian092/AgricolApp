@@ -1,0 +1,138 @@
+﻿@model IPagedList<ProyectoV1.Models.animal>
+@using PagedList.Mvc;
+@using PagedList;
+@using ProyectoV1.Helpers
+
+@{
+    ViewBag.Title = "PorVender";
+    Layout = "~/Views/Shared/_Template.cshtml";
+    var grid = new WebGrid(source: Model, canPage: false);
+}
+
+<div>
+    <h2>Animales que puedes vender por edad</h2>
+    <hr />
+    
+    <br />
+
+    <div class="contac">
+        <table class="table table-hover">
+            <tr>
+                <th>
+                    Codigo Sag
+                </th>
+                <th>
+                    Sexo
+
+                </th>
+                <th>
+                    Nacimiento
+                </th>
+                <th>
+                    Ingreso al Fundo
+                </th>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.First().estado)*@
+                    Estado
+                </th>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.First().raza)*@
+                    Raza
+                </th>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.First().tipo)*@
+                    Tipo
+                </th>
+                <th>
+                    Codigo QR
+                </th>
+                <th>
+                    Edad
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.codigo_sag)
+                    </td>
+                    <td>
+                        @{
+
+                            var sexo = "";
+                            if (item.sexo.Equals("M"))
+                            {
+                                sexo = "Macho";
+
+                            };
+                            if (item.sexo.Equals("H"))
+                            {
+                                sexo = "Hembra";
+
+                            };
+
+                        }
+                        @sexo
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fec_nac)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fecha_ing)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.estado.nombre)
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.raza.nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.tipo.nombre)
+                    </td>
+                    <td>
+                        @Html.GenerateQrCode3(item.codigo_sag)
+                    </td>
+                    @*<td>
+                            @Html.GenerateQrCode3(Model.codigo_sag)
+                        </td>*@
+                    <td>
+                        @{
+                           
+                            DateTime? naci = item.fec_nac;
+                            DateTime nac_fec = Convert.ToDateTime(naci);
+                            DateTime edad = DateTime.MinValue + (DateTime.Today - nac_fec);
+                            int año = edad.Year - 1;
+                            int meses = edad.Month - 1;
+                            int dias = edad.Day - 1;
+                            
+                              
+                        }
+                        <div>@año Años / @meses Meses / @dias Dias</div>
+                    </td>
+                </tr>
+
+                            }
+
+        </table>
+
+        <div>
+            @Html.PagedListPager(Model, page => Url.Action("PorVender", new { page }))    
+        </div>
+        <div>
+            @Html.ActionLink(" Volver al Inicio", "Index", " ", htmlAttributes: new { @class = "btn btn-success glyphicon glyphicon-arrow-left" })
+        </div>
+    </div>
+
+</div>
+
+<style>
+    .contac {
+        float: left;
+    }
+
+    .contac2 {
+        float: right;
+    }
+</style>

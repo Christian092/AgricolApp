@@ -1,0 +1,9 @@
+﻿
+@{
+    ViewBag.Title = "Error";
+    Layout = "~/Views/Shared/_Template.cshtml";
+}
+
+<h2>Error ! No se puede eliminar ya que existen datos asociados al animal</h2>
+<br />
+@Html.ActionLink(" Volver al Inicio", "Index", " ", htmlAttributes: new { @class = "btn btn-success glyphicon glyphicon-arrow-left" })

@@ -1,0 +1,354 @@
+﻿@using ProyectoV1.Utils;
+
+        <!DOCTYPE html>
+        <html xmlns="http://www.w3.org/1999/xhtml">
+
+        <head>
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <title>AgricolApp</title>
+            <!-- Bootstrap Styles-->
+            <link href="~/Content/Template/assets/css/bootstrap.css" rel="stylesheet" />
+            <!-- FontAwesome Styles-->
+            <link href="~/Content/Template/assets/css/font-awesome.css" rel="stylesheet" />
+            <!-- Morris Chart Styles-->
+            <link href="~/Content/Template/assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+            <!-- Custom Styles-->
+            <link href="~/Content/Template/assets/css/custom-styles.css" rel="stylesheet" />
+            <!-- Google Fonts-->
+            <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBggVblEQn4OdqWHAi6llaUEdf7YEHUxuw&sensor=false&libraries=drawing"></script>
+            @Scripts.Render("~/bundles/gmaps")
+            @Scripts.Render("~/bundles/jquerymin")
+            @Scripts.Render("~/bundles/jquery")
+            @Scripts.Render("~/bundles/bootstrap")
+            @RenderSection("scripts", required: false)
+            @{
+                int id;
+                if (Session["id"] != null)
+                {
+                    var SessionId = Session["id"].ToString();
+                    id = Convert.ToInt32(SessionId);
+                }
+                else
+                {
+                    id = 0;
+                }
+            }
+        </head>
+
+        <body>
+
+@{ if (Session["rol"] != null)
+    {
+        <div id="wrapper">
+
+            <nav class="navbar navbar-default top-navbar" role="navigation">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="~/Usuario/Index">AgricolApp</a>
+
+
+
+                </div>
+
+                <ul class="nav navbar-top-links navbar-right">
+
+                    <!-- /.dropdown -->
+                    <!-- /.dropdown -->
+                    <!-- /.dropdown -->
+
+                    <li align="center"><font color="white">Bienvenido Usuario/a : @Session["rut"]</font></li>
+
+                    <li>@Html.ActionLink("Cerrar Sesión", "Logout", "Usuario")</li>
+                    <!-- /.dropdown -->
+                </ul>
+            </nav>
+            <!--/. NAV TOP  -->
+            <nav class="navbar-default navbar-side" role="navigation">
+                <div class="sidebar-collapse">
+                    <ul class="nav" id="main-menu">
+
+                        <li>
+                            <a class="active-menu" href="#"><i class="fa fa-bar-chart-o"></i>Graficos<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="~/Grafico/CantidadMuertes">Cantidad de Muertes</a>
+                                </li>
+                                <li>
+                                    <a href="~/Grafico/GraficoSexo">Sexo de Animales</a>
+                                </li>
+                                <li>
+                                    <a href="~/Grafico/GraficoTipos">Tipos de Animales</a>
+                                </li>
+                                <li>
+                                    <a href="~/Grafico/TipoPrueba">Produccion de Leche</a>
+                                </li>
+                                <li>
+                                    <a href="~/Grafico/GraficoInseminaciones">Inseminaciones por Año</a>
+                                </li>
+                                <li>
+                                    <a href="~/Grafico/GraficoGanancias">Ganancias por Ventas de Animales</a>
+                                </li>
+                                <li>
+                                    <a href="~/Grafico/GraficoRazas">Razas de Animales</a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+
+
+                        <li>
+                            <a href="#"><i class="glyphicon glyphicon-home"></i>Lecheria<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="~/Lecheria/Create">Añadir</a>
+                                </li>
+
+                                <li>
+                                    <a href="#">Ordeña<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-third-level">
+                                        <li>
+                                            <a href="~/Ordena/Create">Añadir</a>
+                                        </li>
+                                        <li>
+                                            <a href="~/Ordena/Index">Ver</a>
+                                        </li>
+
+
+                                    </ul>
+
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#"><i><img src="~/Content/Image/cow_animal_5833 (2).png" width="20" height="20" /></i>Animal<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="~/Animal/Create">Crear</a>
+                                </li>
+                                <li>
+                                    <a href="~/Animal/Index">Ver</a>
+                                </li>
+
+
+
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#"><i class="glyphicon glyphicon-heart"></i>Parto<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="~/Parto/Create">Añadir</a>
+                                </li>
+                                <li>
+                                    <a href="~/Parto/Index">Ver</a>
+                                </li>
+
+
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-heartbeat"></i>Muerte<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="~/Muerte/Create">Añadir</a>
+                                </li>
+                                <li>
+                                    <a href="~/Muerte/Index">Ver</a>
+                                </li>
+
+
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#"><i class="glyphicon glyphicon-tint"></i>Inseminacion<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="~/Inseminacion/Create">Añadir</a>
+                                </li>
+                                <li>
+                                    <a href="~/Inseminacion/Index">Ver</a>
+                                </li>
+
+
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#"><i class="glyphicon glyphicon-user"></i>Inseminador<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="~/Inseminador/Create">Añadir</a>
+                                </li>
+                                <li>
+                                    <a href="~/Inseminador/Index">Ver</a>
+                                </li>
+
+
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#"><i class="glyphicon glyphicon-plus-sign"></i>Medicamento<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="~/Medicamento/Create">Añadir</a>
+                                </li>
+                                <li>
+                                    <a href="~/Medicamento/Inicio">Ver</a>
+                                </li>
+
+
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="#"><i class="glyphicon glyphicon-map-marker"></i>GPS<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="~/Gps/CrearTerreno">Crear Terreno</a>
+                                </li>
+                                <li>
+                                    <a href="~/Gps/UbicacionGanado">Ver Ganado</a>
+                                </li>
+                                <li>
+                                    <a href="~/Gps/Index">Inicio GPS</a>
+                                </li>
+                            </ul>
+                        </li>
+                        @{
+                            var alertasMantencion = Shared.AlertaMantencion();
+                            var alertasTratamiento = Shared.AlertaTratamiento();
+                            var alertasTratamientoAnimal = Shared.AlertaTratamientoAnimal();
+                            var alertasTotales = alertasMantencion + alertasTratamiento + alertasTratamientoAnimal;
+                        }
+                        <li>
+                            @{
+                                if (alertasTotales >= 1)
+                                {
+                                    <a href="#"><i class="glyphicon glyphicon-bell notification-icon"></i>Alertas <span class="label label-danger">@alertasTotales</span><span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level">
+                                        <li>
+                                            <a href="~/Alerta_mantencion/Index">Mantencion de Lecheria <span class="label label-danger">@alertasMantencion</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="~/Tratamiento/Index">Tratamiento por Lote <span class="label label-danger">@alertasTratamiento</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="~/Tratamiento_animal/Index">Tratamiento de Animal <span class="label label-danger">@alertasTratamientoAnimal</span></a>
+                                        </li>
+
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <a href="#"><i class="glyphicon glyphicon-bell notification-icon"></i>Alertas <span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level">
+                                        <li>
+                                            <a href="~/Alerta_mantencion/Index">Mantencion de Lecheria</a>
+                                        </li>
+                                        <li>
+                                            <a href="~/Tratamiento/Index">Tratamiento por Lote </a>
+                                        </li>
+                                        <li>
+                                            <a href="~/Tratamiento_animal/Index">Tratamiento de Animal</a>
+                                        </li>
+
+                                    </ul>
+                                }
+                            }
+                            
+                        </li>
+                        <li>
+                            <a href="#"><i class="glyphicon glyphicon-usd"></i>Venta<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="~/Venta/Create">Añadir</a>
+                                </li>
+                                <li>
+                                    <a href="~/Venta/Index">Ver</a>
+                                </li>
+
+
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#"><i class="glyphicon glyphicon-info-sign"></i>Secamiento<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="~/Secamiento/Create">Añadir</a>
+                                </li>
+                                <li>
+                                    <a href="~/Secamiento/Index">Ver</a>
+                                </li>
+
+
+                            </ul>
+                        </li>
+
+
+
+
+                    </ul>
+
+                </div>
+
+            </nav>
+
+
+            <!-- /. NAV SIDE  -->
+
+            <div id="page-wrapper">
+
+                <div id="page-inner">
+
+                    <div class="col-sm-push-3" style="background-color:lavender;">
+                        @RenderBody()
+                    </div>
+
+
+                    <!-- /. ROW  -->
+                    <!-- /. ROW  -->
+                    <!-- /. ROW  -->
+
+                </div>
+                <!-- /. PAGE INNER  -->
+            </div>
+            <!-- /. PAGE WRAPPER  -->
+        </div>
+                            }
+                            else
+                            {
+                                 Response.Redirect("~/Usuario/Login");
+                            }
+}
+            
+            <!-- /. WRAPPER  -->
+            <!-- JS Scripts-->
+            <!-- jQuery Js -->
+            <script src="~/Content/Template/assets/js/jquery-1.10.2.js"></script>
+            <!-- Bootstrap Js -->
+            <script src="~/Content/Template/assets/js/bootstrap.min.js"></script>
+            <!-- Metis Menu Js -->
+            <script src="~/Content/Template/assets/js/jquery.metisMenu.js"></script>
+            <!-- Morris Chart Js -->
+            <script src="~/Content/Template/assets/js/morris/raphael-2.1.0.min.js"></script>
+            <script src="~/Content/Template/assets/js/morris/morris.js"></script>
+            <!-- Custom Js -->
+            <script src="~/Content/Template/assets/js/custom-scripts.js"></script>
+
+        </body>
+    </html>
+                              
+}
+
+
+
+
+

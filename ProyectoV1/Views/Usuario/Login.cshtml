@@ -1,0 +1,115 @@
+﻿@model ProyectoV1.Models.usuario
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<div>
+    <div class="jumbotron centro" style="background-color:lavender;">
+
+        <h1 style="color:black"><b align="center">Bienvenido a AgricolApp </b><img src="~/Content/Image/logoagricolaa (5).png" width="115" height="115"/></h1>
+        <p style="color:black">¡La Mejor Manera de Administrar tu Fundo!</p>
+
+    </div>
+</div>
+<div id="myCarousel" class="carousel slide col-md-12" data-ride="carousel" align="center">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <img src="~/Content/Image/grafico.png" alt="Chania" height="50">
+            <div class="carousel-caption">
+                <h3>Graficos para el análisis de datos</h3>
+            </div>
+        </div>
+
+        <div class="item" width="100" height="100">
+            <img src="~/Content/Image/gpsportada.png" alt="Chicago">
+            <div class="carousel-caption">
+                <h3>Ubicacion en Tiempo Real</h3>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        <span class="sr-only">Anterior</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+        <span class="sr-only">Siguiente</span>
+    </a>
+</div>
+
+
+
+
+<style>
+   
+body {
+  background-color:lavender;
+  -webkit-font-smoothing: antialiased;
+  font: normal 17px Roboto,arial,sans-serif;
+}
+
+.container {
+    padding: 50px;
+    
+}
+
+.form-login {
+    padding: 25px;
+    background-color: 	#5A9EA6  ;
+    padding-top: 20px;
+    padding-bottom: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-radius: 25px;
+    border-color:#d2d2d2;
+    border-width: 10px;
+    box-shadow:0 2px 0 #cfcfcf;
+}
+
+h4 { 
+ border:0 solid #fff; 
+ border-bottom-width:1px;
+ padding-bottom:10px;
+ text-align: center;
+}
+
+.form-control {
+    border-radius: 10px;
+}
+
+.wrapper {
+    text-align: center;
+}
+.carousel-inner img {
+    width: 70%;
+    max-height: 460px;
+}
+
+.carousel-inner{
+ height: 360px;
+}
+.centro{
+    align-content: center;
+}
+</style>
+
+<script>
+    $(document).ready(function(){
+        $('.myCarousel').carousel({
+            interval: 50
+        });
+    });
+</script>

@@ -1,0 +1,60 @@
+﻿@model ProyectoV1.Models.gps
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Template.cshtml";
+}
+
+
+<h3>
+    ¿Seguro quieres eliminar este GPS?
+</h3><div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.latitud)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.latitud)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.longitud)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.longitud)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.imei)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.imei)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.animal.codigo_sag)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.animal.codigo_sag)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <div align="center"><h4><font color="red">@ViewBag.Error</font></h4></div>
+            <input type="submit" value="Eliminar" class="btn btn-danger" />
+            @Html.ActionLink("Volver al Inicio", "Index", " ", htmlAttributes: new { @class = "btn btn-success " })
+        </div>
+    }
+</div>
+

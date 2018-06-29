@@ -1,0 +1,62 @@
+﻿@model ProyectoV1.Models.lecheria
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Template.cshtml";
+}
+
+<h2>Detalles de la Lecheria</h2>
+
+<div>
+ 
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.capacidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.capacidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ordenas_diarias)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ordenas_diarias)
+        </dd>
+
+        <dt>
+            Trabajadores
+            @*@Html.DisplayNameFor(model => model.cantidad_trabajadores)*@
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cantidad_trabajadores)
+        </dd>
+
+        <dt>
+            Fabricante
+            @*@Html.DisplayNameFor(model => model.fabricante.nombre)*@
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fabricante.nombre)
+        </dd>
+
+        <dt>
+            Tipo
+            @*@Html.DisplayNameFor(model => model.tipo_lecheria.nombre)*@
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tipo_lecheria.nombre)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink(" Editar", "Edit", new { id = Model.id }, htmlAttributes: new { @class = "btn btn-primary glyphicon glyphicon-pencil" })
+    @Html.ActionLink(" Volver al Inicio", "Index", " ", htmlAttributes: new { @class = "btn btn-success glyphicon glyphicon-arrow-left" })
+</p>

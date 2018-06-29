@@ -1,0 +1,71 @@
+﻿@model ProyectoV1.Models.ordena
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Template.cshtml";
+}
+
+<h3>¿Seguro quieres eliminar esta Ordeña?</h3>
+<div>
+    <br />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.litros)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.litros)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.jornada)
+        </dt>
+
+        <dd>
+            @{
+
+                var jornada = "";
+                if (Model.jornada.Equals("M"))
+                {
+                    jornada = "Mañana";
+
+                };
+                if (Model.jornada.Equals("T"))
+                {
+                    jornada = "Tarde";
+
+                };
+
+            }
+            @jornada
+        </dd>
+
+        <dt>
+            Lecheria
+            @*@Html.DisplayNameFor(model => model.lecheria.id)*@
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.lecheria.id)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <div align="center"><h4><font color="red">@ViewBag.Error</font></h4></div>
+            <button type="submit" class="btn btn-danger glyphicon glyphicon-trash"> Eliminar</button>
+            @Html.ActionLink(" Volver al Inicio", "Index", " ", htmlAttributes: new { @class = "btn btn-success glyphicon glyphicon-arrow-left" })
+        </div>
+    }
+</div>

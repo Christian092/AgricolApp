@@ -1,0 +1,78 @@
+﻿@model ProyectoV1.Models.raza
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Template.cshtml";
+}
+
+<h2>Añade una Raza</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div>
+
+        <div class="contac col-xs-8">
+            <div class="form-horizontal">
+                <div align="center"><h4><font color="red">@ViewBag.Error</font></h4></div>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.nombre,"Raza" ,htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-xs-6">
+                        @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.procedencia_id, "Procedencia", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-xs-6">
+                        @Html.DropDownList("procedencia_id", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.procedencia_id, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button type="submit" class="btn btn-primary glyphicon glyphicon-plus"> Añadir Raza</button>
+                        @Html.ActionLink(" Ver Razas", "Index", " ", htmlAttributes: new { @class = "btn btn-success glyphicon glyphicon-eye-open" })
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="alert alert-warning contac2">
+            
+            <div>
+                <div>
+                    <div>
+                        <a href="~/Procedencia/Create" class="btn btn-success glyphicon glyphicon-plus" role="button" align="right"  style='width:180px; height:30px'> Crear Procedencia </a>
+                    </div>
+                    
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+}
+
+<style>
+    .contac {
+        float: left;
+    }
+
+    .contac2 {
+        float: right;
+    }
+
+    .div1 {
+        display: inline-block;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+    }
+</style>
+

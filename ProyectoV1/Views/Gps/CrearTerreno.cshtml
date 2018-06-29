@@ -1,0 +1,198 @@
+﻿@model ProyectoV1.Models.gps
+
+@{
+    ViewBag.Title = "CrearTerreno";
+    Layout = "~/Views/Shared/_Template.cshtml";
+}
+
+<h2>Crear Terreno</h2>
+<br />
+<script type="text/javascript">
+    var map;
+    var vertices = new Array();
+    var poli;
+    var existeterreno = false;
+
+    
+
+
+
+    //Mapa de GMAPs
+    $(document).ready(function () {
+        map = new GMaps({
+            el: '#map',
+            lat: -40.5761897,
+            lng: -73.114947,
+            mapTypeId: 'satellite'
+        });
+        @*$("btnGuardar").click(function () {
+            window.location.href = "@Url.Action("UbicacionGanado","GpsController")";
+        });*@
+
+        //Buscar Ubicacion ingresada
+
+        $("#btnGuardar").prop('disabled', true);
+        //$("#btnGuardar").css('color', '#c7a95f');
+
+
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: "/Gps/GetTerrenoyGps",
+            success: function (data) {
+                var json = JSON.parse(data)
+                gps = json.Marcadores;
+                terreno = json.vertices;
+                console.log(Object.keys(gps).length);
+
+                if (json.vertices.length > 0) {
+                    existeterreno = true;
+                    console.log("dentro de ajax terreno: "+existeterreno);
+                }
+            }
+
+        });
+
+
+
+
+        $('#geocoding_form').submit(function (e) {
+            e.preventDefault();
+            GMaps.geocode({
+                address: $('#address').val().trim(),
+                callback: function (results, status) {
+                    if (status == 'OK') {
+                        var latlng = results[0].geometry.location;
+                        map.setCenter(latlng.lat(), latlng.lng());
+                    }
+                }
+            });
+        });
+
+
+        //agragando herramienta de marcado
+        var drawingManager = new google.maps.drawing.DrawingManager({
+            drawingControl: true,
+            drawingControlOptions: {
+                position: google.maps.ControlPosition.TOP_CENTER,
+                drawingModes:
+                    [google.maps.drawing.OverlayType.POLYGON]
+            },
+            polygonOptions: {
+                clickable: false,
+                editable: true
+            }
+        });
+
+        drawingManager.setMap(map.map);
+
+        //Agregarndo Capturar Vertices
+        google.maps.event.addListener(drawingManager, 'polygoncomplete', function (polygon) {
+            console.log("poligono completado");
+            console.log("dentro de polygon complete:  "+existeterreno.toString);
+            if(existeterreno==false)
+            {
+                $("#btnGuardar").prop('disabled', false);
+            }
+            var vert = polygon.getPath();
+            //obteniendo objeto de tipo MVCArray
+            for (var i = 0; i < polygon.getPath().getLength() ; i++) {
+                var xy = vert.getAt(i);
+                vertices.push({
+                    "latitud": xy.lat(),
+                    "longitud": xy.lng(),
+                })
+            };
+            console.log("", vertices);
+            google.maps.event.addListener(polygon.getPath(), 'set_at', function () {
+                console.log("cambios en el poligono 1");
+                vertices = [];//limpiar array de vertices
+                var vert = polygon.getPath();
+                //obteniendo objeto de tipo MVCArray
+                for (var i = 0; i < polygon.getPath().getLength() ; i++) {
+                    var xy = vert.getAt(i);
+                    vertices.push({
+                        "latitud": xy.lat(),
+                        "longitud": xy.lng(),
+                    })
+                };
+                console.log("", vertices);
+            })
+
+
+            google.maps.event.addListener(polygon.getPath(), 'insert_at', function () {
+                console.log("cambios en el poligono 2");
+                vertices = [];//limpiar array de vertices
+                var vert = polygon.getPath();
+                //obteniendo objeto de tipo MVCArray
+                for (var i = 0; i < polygon.getPath().getLength() ; i++) {
+                    var xy = vert.getAt(i);
+                    vertices.push({
+                        "latitud": xy.lat(),
+                        "longitud": xy.lng(),
+                    })
+                };
+                console.log("", vertices);
+            })
+
+
+
+        });
+
+
+
+
+        //Enviar json con vertices al controlador
+        $('#vertices_form').submit(function (e) {
+            e.preventDefault();
+            var jsonData = JSON.stringify(vertices);
+            console.log(jsonData);
+            $.ajax({
+                url: "/Gps/CrearTerrenoJSON",
+                type: "POST",
+                dataType: 'json',
+                data: jsonData,
+                contentType: 'aplication/json; chartset=utf-8',
+                success: function (response) { },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.log("errorrrr:       " + textStatus + "   " + errorThrown);
+                }
+            });
+            alert("terreno guardado con Exito!");
+            $("#btnGuardar").prop('disabled', true);
+            $("#btnGuardar").css('color', '#c7a95f');
+        });
+
+
+    });
+</script>
+<form method="post" id="geocoding_form">
+    <label for="address">Ingrese Lugar</label>
+    <div class="input">
+        <input type="text" id="address" name="address">
+        <input type="submit" class="btn btn-primary" value="Buscar">
+    </div>
+</form>
+<form method="post" id="vertices_form">
+    <label for="address"></label>
+    <div class="input">
+        <input id="btnGuardar" type="submit" class="btn btn-success" value="Guardar Terreno" disabled>
+    </div>
+</form>
+<div class="container">
+    <br />
+    <div class="panel panel-primary">
+        <div class="panel panel-heading">Mapa de Ganado</div>
+        <div class="panel panel-body">
+            <div class="col-md-10">
+                <div class="form-group">
+                    <div id="map" style="width:900px; height:500px;"></div>
+                    <div id="info"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

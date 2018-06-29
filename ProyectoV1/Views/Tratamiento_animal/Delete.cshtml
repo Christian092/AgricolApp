@@ -1,0 +1,58 @@
+﻿@model ProyectoV1.Models.tratamiento_animal
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Template.cshtml";
+}
+<h3>¿Seguro quieres eliminar este Tratamiento de Animal?</h3>
+<div>
+    <h4>Tratamiento Animal</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha)
+        </dd>
+        <dt>
+            Animal
+         
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.animal.codigo_sag)
+        </dd>
+
+        <dt>
+            Tratador
+
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tratador.nombre)
+        </dd>
+        <dt>
+            Tipo Tratamiento
+
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tipo_tratamiento.nombre)
+        </dd>
+
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <div align="center"><h4><font color="red">@ViewBag.Error</font></h4></div>
+            <button type="submit" class="btn btn-danger glyphicon glyphicon-trash"> Eliminar</button>
+            @Html.ActionLink(" Volver al Inicio", "Index", " ", htmlAttributes: new { @class = "btn btn-success glyphicon glyphicon-arrow-left" })
+        </div>
+    }
+</div>

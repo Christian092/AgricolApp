@@ -1,0 +1,46 @@
+﻿@model IPagedList<ProyectoV1.Models.nace_muerto>
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Template.cshtml";
+}
+
+<h2>Animales que Nacieron Muertos</h2>
+<hr />
+<table class="table table-hover" style="width:auto">
+    <tr>
+        <th>
+            Parto
+        </th>
+        <th>
+            Raza
+        </th>
+        <th>
+            Tipo
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.parto.id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.raza.nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tipo.nombre)
+            </td>
+            <td>
+                @Html.ActionLink(" ", "Edit", new { id = item.id }, htmlAttributes: new { @class = "btn btn-success glyphicon glyphicon-pencil" })
+                @Html.ActionLink(" ", "Delete", new { id = item.id }, htmlAttributes: new { @class = "btn btn-danger glyphicon glyphicon-trash" })
+            </td>
+        </tr>
+    }
+
+</table>
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+@Html.ActionLink(" Añadir Muerte", "Create", " ", htmlAttributes: new { @class = "btn btn-primary glyphicon glyphicon-plus" })
